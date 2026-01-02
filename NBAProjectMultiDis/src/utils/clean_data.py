@@ -17,7 +17,7 @@ concatenation_unique = (
     .drop_duplicates(subset="city")
 )
 
-concatenation_unique.to_csv("NBAProjectMultiDis/data/cleaned/cities.csv")
+concatenation_unique.to_csv("NBAProjectMultiDis/data/cleaned/cities.csv", index=False)
 
 # Cleaning and writing the "franchises.csv" file for NBA franchises location
 
@@ -32,7 +32,7 @@ selection = selection.rename(columns={
     "Long": "lng"
 })
 
-selection.to_csv("NBAProjectMultiDis/data/cleaned/franchises.csv")
+selection.to_csv("NBAProjectMultiDis/data/cleaned/franchises.csv", index=False)
 
 # Cleaning and writing the "wins.csv" file for NBA finals, winners, mvp, etc..
 
@@ -50,12 +50,25 @@ wins = wins.rename(columns={
 
 wins_selected = wins[["year", "west_champion", "east_champion", "result", "champion", "mvp", "mvp_team"]]
 
-wins_selected.to_csv("NBAProjectMultiDis/data/cleaned/wins.csv")
+wins_selected.to_csv("NBAProjectMultiDis/data/cleaned/wins.csv", index=False)
 
 # Cleaning and writing the "games.csv" file for our graphics on points averages by year
-21800549
+# 21800549
 
-games = pd.read_csv("NBAProjectMultiDis/data/raw/csvs/games.csv")
+games = pd.read_csv(
+    "NBAProjectMultiDis/data/raw/csvs/games.csv",
+    usecols=[
+        "hometeamCity",
+        "hometeamName",
+        "awayteamCity",
+        "awayteamName",
+        "homeScore",            # To avoid warning about columns that're not used
+        "awayScore",
+        "winner",
+        "hometeamId",
+        "awayteamId"
+    ]
+)
 
 games = games.rename(columns={
     "hometeamCity": "home_city",
@@ -66,8 +79,16 @@ games = games.rename(columns={
     "awayScore": "away_score",
 })
 
-games_selected = games[["home_city", "home_name", "away_city", "away_name", "home_score", "away_score", "winner"]]
+def get_winner(row):
+    if row["winner"] == row["hometeamId"]:
+        return row["home_name"]
+    elif row["winner"] == row["awayteamId"]:
+        return row["away_name"]
+    else:
+        return None
 
-games_selected.to_csv("NBAProjectMultiDis/data/cleaned/games.csv")
+games["winner_name"] = games.apply(get_winner, axis=1)
 
-# NOT WORKING FOR NOW, PROBLEM WITH THE WINNER BEING AN ID
+games_selected = games[["home_city", "home_name", "away_city", "away_name", "home_score", "away_score", "winner_name"]]
+
+games_selected.to_csv("NBAProjectMultiDis/data/cleaned/games.csv", index=False)

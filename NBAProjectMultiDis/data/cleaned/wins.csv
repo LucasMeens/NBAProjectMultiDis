@@ -1,70 +1,70 @@
-,year,west_champion,east_champion,result,champion,mvp,mvp_team
-0,1950,Minneapolis Lakers,Syracuse Nationals,4–2,Minneapolis Lakers,,
-1,1951,Rochester Royals,New York Knicks,4–3,Rochester Royals,,
-2,1952,Minneapolis Lakers,New York Knicks,4–3,Minneapolis Lakers,,
-3,1953,Minneapolis Lakers,New York Knicks,4–1,Minneapolis Lakers,,
-4,1954,Minneapolis Lakers,Syracuse Nationals,4–3,Minneapolis Lakers,,
-5,1955,Fort Wayne Pistons,Syracuse Nationals,3–4,Syracuse Nationals,,
-6,1956,Fort Wayne Pistons,Philadelphia Warriors,1–4,Philadelphia Warriors,B. Pettit,Saint Louis Hawks
-7,1957,St. Louis Hawks,Boston Celtics,3–4,Boston Celtics,B. Cousy,Boston Celtics
-8,1958,St. Louis Hawks,Boston Celtics,4–2,St. Louis Hawks,B. Russell,Boston Celtics
-9,1959,Minneapolis Lakers,Boston Celtics,0–4,Boston Celtics,B. Pettit,Saint Louis Hawks
-10,1960,St. Louis Hawks,Boston Celtics,3–4,Boston Celtics,W. Chamberlain,Philadelphia Warriors
-11,1961,St. Louis Hawks,Boston Celtics,1–4,Boston Celtics,B. Russell,Boston Celtics
-12,1962,Los Angeles Lakers,Boston Celtics,3–4,Boston Celtics,B. Russell,Boston Celtics
-13,1963,Los Angeles Lakers,Boston Celtics,2–4,Boston Celtics,B. Russell,Boston Celtics
-14,1964,San Francisco Warriors,Boston Celtics,1–4,Boston Celtics,O. Robertson,Cincinnati Royals
-15,1965,Los Angeles Lakers,Boston Celtics,1–4,Boston Celtics,B. Russell,Boston Celtics
-16,1966,Los Angeles Lakers,Boston Celtics,3–4,Boston Celtics,W. Chamberlain,Philadelphia 76ers
-17,1967,San Francisco Warriors,Philadelphia 76ers,2–4,Philadelphia 76ers,W. Chamberlain,Philadelphia 76ers
-18,1968,Los Angeles Lakers,Boston Celtics,2–4,Boston Celtics,W. Chamberlain,Philadelphia 76ers
-19,1969,Los Angeles Lakers,Boston Celtics,3–4,Boston Celtics,W. Unseld,Baltimore Bullets
-20,1970,Los Angeles Lakers,New York Knicks,3–4,New York Knicks,W. Reed,New York Knicks
-21,1971,Milwaukee Bucks,Baltimore Bullets,4–0,Milwaukee Bucks,K. AJabbar,Milwaukee Bucks
-22,1972,Los Angeles Lakers,New York Knicks,4–1,Los Angeles Lakers,K. AJabbar,Milwaukee Bucks
-23,1973,Los Angeles Lakers,New York Knicks,1–4,New York Knicks,D. Cowens,Boston Celtics
-24,1974,Milwaukee Bucks,Boston Celtics,3–4,Boston Celtics,K. AJabbar,Milwaukee Bucks
-25,1975,Golden State Warriors,Washington Bullets,4–0,Golden State Warriors,B. McAdoo,Buffalo Braves
-26,1976,Phoenix Suns,Boston Celtics,2–4,Boston Celtics,K. AJabbar,Los Angeles Lakers
-27,1977,Portland Trail Blazers,Philadelphia 76ers,4–2,Portland Trail Blazers,K. A-Jabbar,Los Angeles Lakers
-28,1978,Seattle SuperSonics,Washington Bullets,3–4,Washington Bullets,B. Walton,Portland Trail Blazers
-29,1979,Seattle SuperSonics,Washington Bullets,4–1,Seattle SuperSonics,M. Malone,Houston Rockets
-30,1980,Los Angeles Lakers,Philadelphia 76ers,4–2,Los Angeles Lakers,K. AJabbar,Los Angeles Lakers
-31,1981,Houston Rockets,Boston Celtics,2–4,Boston Celtics,J. Erving,Philadelphia 76ers
-32,1982,Los Angeles Lakers,Philadelphia 76ers,4–2,Los Angeles Lakers,M. Malone,Houston Rockets
-33,1983,Los Angeles Lakers,Philadelphia 76ers,0–4,Philadelphia 76ers,M. Malone,Philadelphia 76ers
-34,1984,Los Angeles Lakers,Boston Celtics,3–4,Boston Celtics,L. Bird,Boston Celtics
-35,1985,Los Angeles Lakers,Boston Celtics,4–2,Los Angeles Lakers,L. Bird,Boston Celtics
-36,1986,Houston Rockets,Boston Celtics,2–4,Boston Celtics,L. Bird,Boston Celtics
-37,1987,Los Angeles Lakers,Boston Celtics,4–2,Los Angeles Lakers,M. Johnson,Los Angeles Lakers
-38,1988,Los Angeles Lakers,Detroit Pistons,4–3,Los Angeles Lakers,M. Jordan,Chicago Bulls
-39,1989,Los Angeles Lakers,Detroit Pistons,0–4,Detroit Pistons,M. Johnson,Los Angeles Lakers
-40,1990,Portland Trail Blazers,Detroit Pistons,1–4,Detroit Pistons,M. Johnson,Los Angeles Lakers
-41,1991,Los Angeles Lakers,Chicago Bulls,1–4,Chicago Bulls,M. Jordan,Chicago Bulls
-42,1992,Portland Trail Blazers,Chicago Bulls,2–4,Chicago Bulls,M. Jordan,Chicago Bulls
-43,1993,Phoenix Suns,Chicago Bulls,2–4,Chicago Bulls,C. Barkley,Phoenix Suns
-44,1994,Houston Rockets,New York Knicks,4–3,Houston Rockets,H. Olajuwon,Houston Rockets
-45,1995,Houston Rockets,Orlando Magic,4–0,Houston Rockets,D. Robinson,San Antonio Spurs
-46,1996,Seattle SuperSonics,Chicago Bulls,2–4,Chicago Bulls,M. Jordan,Chicago Bulls
-47,1997,Utah Jazz,Chicago Bulls,2–4,Chicago Bulls,K. Malone,Utah Jazz
-48,1998,Utah Jazz,Chicago Bulls,2–4,Chicago Bulls,M. Jordan,Chicago Bulls
-49,1999,San Antonio Spurs,New York Knicks,4–1,San Antonio Spurs,K. Malone,Utah Jazz
-50,2000,Los Angeles Lakers,Indiana Pacers,4–2,Los Angeles Lakers,S. O'Neal,Los Angeles Lakers
-51,2001,Los Angeles Lakers,Philadelphia 76ers,4–1,Los Angeles Lakers,A. Iverson,Philadelphia 76ers
-52,2002,Los Angeles Lakers,New Jersey Nets,4–0,Los Angeles Lakers,T. Duncan,San Antonio Spurs
-53,2003,San Antonio Spurs,New Jersey Nets,4–2,San Antonio Spurs,T. Duncan,San Antonio Spurs
-54,2004,Los Angeles Lakers,Detroit Pistons,1–4,Detroit Pistons,K. Garnett,Minnesota Timberwolves
-55,2005,San Antonio Spurs,Detroit Pistons,4–3,San Antonio Spurs,S. Nash,Phoenix Suns
-56,2006,Dallas Mavericks,Miami Heat,2–4,Miami Heat,S. Nash,Phoenix Suns
-57,2007,San Antonio Spurs,Cleveland Cavaliers,4–0,San Antonio Spurs,D. Nowitzki,Dallas Mavericks
-58,2008,Los Angeles Lakers,Boston Celtics,2–4,Boston Celtics,K. Bryant,Los Angeles Lakers
-59,2009,Los Angeles Lakers,Orlando Magic,4–1,Los Angeles Lakers,L. James,Cleveland Cavaliers
-60,2010,Los Angeles Lakers,Boston Celtics,4–3,Los Angeles Lakers,L. James,Cleveland Cavaliers
-61,2011,Dallas Mavericks,Miami Heat,4–2,Dallas Mavericks,D. Rose,Chicago Bulls
-62,2012,Oklahoma City Thunder,Miami Heat,1–4,Miami Heat,L. James,Miami Heat
-63,2013,San Antonio Spurs,Miami Heat,3–4,Miami Heat,L. James,Miami Heat
-64,2014,San Antonio Spurs,Miami Heat,4–1,San Antonio Spurs,K. Durant,Oklahoma City Thunder
-65,2015,Golden State Warriors,Cleveland Cavaliers,4–2,Golden State Warriors,S. Curry,Golden State Warriors
-66,2016,Golden State Warriors,Cleveland Cavaliers,4–3,Cleveland Cavaliers,S. Curry,Golden State Warriors
-67,2017,Golden State Warriors,Cleveland Cavaliers,4-2,Golden State Warriors,R. Westbrook,Oklahoma City Thunder
-68,2018,Golden State Warriors,Cleveland Cavaliers,4-0,Golden State Warriors,J. Harden,Houston Rockets
+year,west_champion,east_champion,result,champion,mvp,mvp_team
+1950,Minneapolis Lakers,Syracuse Nationals,4–2,Minneapolis Lakers,,
+1951,Rochester Royals,New York Knicks,4–3,Rochester Royals,,
+1952,Minneapolis Lakers,New York Knicks,4–3,Minneapolis Lakers,,
+1953,Minneapolis Lakers,New York Knicks,4–1,Minneapolis Lakers,,
+1954,Minneapolis Lakers,Syracuse Nationals,4–3,Minneapolis Lakers,,
+1955,Fort Wayne Pistons,Syracuse Nationals,3–4,Syracuse Nationals,,
+1956,Fort Wayne Pistons,Philadelphia Warriors,1–4,Philadelphia Warriors,B. Pettit,Saint Louis Hawks
+1957,St. Louis Hawks,Boston Celtics,3–4,Boston Celtics,B. Cousy,Boston Celtics
+1958,St. Louis Hawks,Boston Celtics,4–2,St. Louis Hawks,B. Russell,Boston Celtics
+1959,Minneapolis Lakers,Boston Celtics,0–4,Boston Celtics,B. Pettit,Saint Louis Hawks
+1960,St. Louis Hawks,Boston Celtics,3–4,Boston Celtics,W. Chamberlain,Philadelphia Warriors
+1961,St. Louis Hawks,Boston Celtics,1–4,Boston Celtics,B. Russell,Boston Celtics
+1962,Los Angeles Lakers,Boston Celtics,3–4,Boston Celtics,B. Russell,Boston Celtics
+1963,Los Angeles Lakers,Boston Celtics,2–4,Boston Celtics,B. Russell,Boston Celtics
+1964,San Francisco Warriors,Boston Celtics,1–4,Boston Celtics,O. Robertson,Cincinnati Royals
+1965,Los Angeles Lakers,Boston Celtics,1–4,Boston Celtics,B. Russell,Boston Celtics
+1966,Los Angeles Lakers,Boston Celtics,3–4,Boston Celtics,W. Chamberlain,Philadelphia 76ers
+1967,San Francisco Warriors,Philadelphia 76ers,2–4,Philadelphia 76ers,W. Chamberlain,Philadelphia 76ers
+1968,Los Angeles Lakers,Boston Celtics,2–4,Boston Celtics,W. Chamberlain,Philadelphia 76ers
+1969,Los Angeles Lakers,Boston Celtics,3–4,Boston Celtics,W. Unseld,Baltimore Bullets
+1970,Los Angeles Lakers,New York Knicks,3–4,New York Knicks,W. Reed,New York Knicks
+1971,Milwaukee Bucks,Baltimore Bullets,4–0,Milwaukee Bucks,K. AJabbar,Milwaukee Bucks
+1972,Los Angeles Lakers,New York Knicks,4–1,Los Angeles Lakers,K. AJabbar,Milwaukee Bucks
+1973,Los Angeles Lakers,New York Knicks,1–4,New York Knicks,D. Cowens,Boston Celtics
+1974,Milwaukee Bucks,Boston Celtics,3–4,Boston Celtics,K. AJabbar,Milwaukee Bucks
+1975,Golden State Warriors,Washington Bullets,4–0,Golden State Warriors,B. McAdoo,Buffalo Braves
+1976,Phoenix Suns,Boston Celtics,2–4,Boston Celtics,K. AJabbar,Los Angeles Lakers
+1977,Portland Trail Blazers,Philadelphia 76ers,4–2,Portland Trail Blazers,K. A-Jabbar,Los Angeles Lakers
+1978,Seattle SuperSonics,Washington Bullets,3–4,Washington Bullets,B. Walton,Portland Trail Blazers
+1979,Seattle SuperSonics,Washington Bullets,4–1,Seattle SuperSonics,M. Malone,Houston Rockets
+1980,Los Angeles Lakers,Philadelphia 76ers,4–2,Los Angeles Lakers,K. AJabbar,Los Angeles Lakers
+1981,Houston Rockets,Boston Celtics,2–4,Boston Celtics,J. Erving,Philadelphia 76ers
+1982,Los Angeles Lakers,Philadelphia 76ers,4–2,Los Angeles Lakers,M. Malone,Houston Rockets
+1983,Los Angeles Lakers,Philadelphia 76ers,0–4,Philadelphia 76ers,M. Malone,Philadelphia 76ers
+1984,Los Angeles Lakers,Boston Celtics,3–4,Boston Celtics,L. Bird,Boston Celtics
+1985,Los Angeles Lakers,Boston Celtics,4–2,Los Angeles Lakers,L. Bird,Boston Celtics
+1986,Houston Rockets,Boston Celtics,2–4,Boston Celtics,L. Bird,Boston Celtics
+1987,Los Angeles Lakers,Boston Celtics,4–2,Los Angeles Lakers,M. Johnson,Los Angeles Lakers
+1988,Los Angeles Lakers,Detroit Pistons,4–3,Los Angeles Lakers,M. Jordan,Chicago Bulls
+1989,Los Angeles Lakers,Detroit Pistons,0–4,Detroit Pistons,M. Johnson,Los Angeles Lakers
+1990,Portland Trail Blazers,Detroit Pistons,1–4,Detroit Pistons,M. Johnson,Los Angeles Lakers
+1991,Los Angeles Lakers,Chicago Bulls,1–4,Chicago Bulls,M. Jordan,Chicago Bulls
+1992,Portland Trail Blazers,Chicago Bulls,2–4,Chicago Bulls,M. Jordan,Chicago Bulls
+1993,Phoenix Suns,Chicago Bulls,2–4,Chicago Bulls,C. Barkley,Phoenix Suns
+1994,Houston Rockets,New York Knicks,4–3,Houston Rockets,H. Olajuwon,Houston Rockets
+1995,Houston Rockets,Orlando Magic,4–0,Houston Rockets,D. Robinson,San Antonio Spurs
+1996,Seattle SuperSonics,Chicago Bulls,2–4,Chicago Bulls,M. Jordan,Chicago Bulls
+1997,Utah Jazz,Chicago Bulls,2–4,Chicago Bulls,K. Malone,Utah Jazz
+1998,Utah Jazz,Chicago Bulls,2–4,Chicago Bulls,M. Jordan,Chicago Bulls
+1999,San Antonio Spurs,New York Knicks,4–1,San Antonio Spurs,K. Malone,Utah Jazz
+2000,Los Angeles Lakers,Indiana Pacers,4–2,Los Angeles Lakers,S. O'Neal,Los Angeles Lakers
+2001,Los Angeles Lakers,Philadelphia 76ers,4–1,Los Angeles Lakers,A. Iverson,Philadelphia 76ers
+2002,Los Angeles Lakers,New Jersey Nets,4–0,Los Angeles Lakers,T. Duncan,San Antonio Spurs
+2003,San Antonio Spurs,New Jersey Nets,4–2,San Antonio Spurs,T. Duncan,San Antonio Spurs
+2004,Los Angeles Lakers,Detroit Pistons,1–4,Detroit Pistons,K. Garnett,Minnesota Timberwolves
+2005,San Antonio Spurs,Detroit Pistons,4–3,San Antonio Spurs,S. Nash,Phoenix Suns
+2006,Dallas Mavericks,Miami Heat,2–4,Miami Heat,S. Nash,Phoenix Suns
+2007,San Antonio Spurs,Cleveland Cavaliers,4–0,San Antonio Spurs,D. Nowitzki,Dallas Mavericks
+2008,Los Angeles Lakers,Boston Celtics,2–4,Boston Celtics,K. Bryant,Los Angeles Lakers
+2009,Los Angeles Lakers,Orlando Magic,4–1,Los Angeles Lakers,L. James,Cleveland Cavaliers
+2010,Los Angeles Lakers,Boston Celtics,4–3,Los Angeles Lakers,L. James,Cleveland Cavaliers
+2011,Dallas Mavericks,Miami Heat,4–2,Dallas Mavericks,D. Rose,Chicago Bulls
+2012,Oklahoma City Thunder,Miami Heat,1–4,Miami Heat,L. James,Miami Heat
+2013,San Antonio Spurs,Miami Heat,3–4,Miami Heat,L. James,Miami Heat
+2014,San Antonio Spurs,Miami Heat,4–1,San Antonio Spurs,K. Durant,Oklahoma City Thunder
+2015,Golden State Warriors,Cleveland Cavaliers,4–2,Golden State Warriors,S. Curry,Golden State Warriors
+2016,Golden State Warriors,Cleveland Cavaliers,4–3,Cleveland Cavaliers,S. Curry,Golden State Warriors
+2017,Golden State Warriors,Cleveland Cavaliers,4-2,Golden State Warriors,R. Westbrook,Oklahoma City Thunder
+2018,Golden State Warriors,Cleveland Cavaliers,4-0,Golden State Warriors,J. Harden,Houston Rockets
