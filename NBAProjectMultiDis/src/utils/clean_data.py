@@ -53,7 +53,6 @@ wins_selected = wins[["year", "west_champion", "east_champion", "result", "champ
 wins_selected.to_csv("NBAProjectMultiDis/data/cleaned/wins.csv", index=False)
 
 # Cleaning and writing the "games.csv" file for our graphics on points averages by year
-# 21800549
 
 games = pd.read_csv(
     "NBAProjectMultiDis/data/raw/csvs/games.csv",
