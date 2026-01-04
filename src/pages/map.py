@@ -1,50 +1,38 @@
-from dash import html, dcc
-import plotly.express as px
-from src.backend.stats_service import (
-    get_points_distribution,
-    get_top_players,
-    get_boxplot_by_position,
-    get_scatter_points_vs_shots
-)
+import pandas as pd
+import numpy as np
 
-def dashboard_layout():
-    df_points = get_points_distribution()
-    fig_hist = px.histogram(
-        df_points,
-        x="Points",
-        color="Team",
-        title="Distribution des points par joueur"
-    )
+from bokeh.io import output_notebook, show
+from bokeh.plotting import figure
+from bokeh.models import ColumnDataSource, HoverTool, ImageURL
+from bokeh.tile_providers import get_provider, OSM
+from bokeh.util.geo import wgs84_to_web_mercator
 
-    top5 = get_top_players("Points")
-    fig_top5 = px.bar(
-        top5,
-        x="Points",
-        y="Player",
-        orientation="h",
-        title="Top 5 joueurs par points"
-    )
+output_notebook()
 
-    box_df = get_boxplot_by_position()
-    fig_box = px.box(
-        box_df,
-        x="Position",
-        y="Points",
-        title="Performance par position"
-    )
+df = pd.read_csv("data/cleaned/franchises.csv")
 
-    scatter_df = get_scatter_points_vs_shots()
-    fig_scatter = px.scatter(
-        scatter_df,
-        x="FGA",
-        y="Points",
-        color="Team",
-        title="Corrélation tirs tentés / points"
-    )
+df["logo"] = df["franchise"].apply(lambda x: f"assets/images/{x.split()[0]}.png")
 
-    return html.Div([
-        dcc.Graph(figure=fig_hist),
-        dcc.Graph(figure=fig_top5),
-        dcc.Graph(figure=fig_box),
-        dcc.Graph(figure=fig_scatter),
-    ])
+df[["x", "y"]] = wgs84_to_web_mercator(df[["lng", "lat"]])
+
+df["same_city_number"] = df.groupby(["lat", "lng"]).cumcount()
+
+OFFSET = 3000  
+df["x_jitter"] = df["x"] + df["same_city_number"] * OFFSET
+df["y_jitter"] = df["y"] + df["same_city_number"] * OFFSET
+
+source = ColumnDataSource(df)
+
+p = figure(x_axis_type="mercator", y_axis_type="mercator", width=1000, height=700, title="NBA Franchises in the United States", tools="pan,wheel_zoom,box_zoom,reset")
+
+p.add_tile(get_provider(OSM))
+
+logos_map = ImageURL(url="logo", x="x_jitter", y="y_jitter", w=80000,  h=80000, anchor="center")
+
+p.add_glyph(source, logos_map)
+
+hover = HoverTool(tooltips=[("Franchise", "@franchise")])
+p.add_tools(hover)
+
+show(p)
+
