@@ -2,4 +2,11 @@ plotly
 dash
 pandas
 numpy
+<<<<<<< HEAD
 bokeh
+=======
+bokeh
+kagglehub
+shutil
+pathlib
+>>>>>>> 233583d419f7d6342b7f6e53304b914835da445e
