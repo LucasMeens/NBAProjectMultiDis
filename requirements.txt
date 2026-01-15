@@ -2,3 +2,7 @@ plotly
 dash
 pandas
 numpy
+bokeh
+kagglehub
+shutil
+pathlib
