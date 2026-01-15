@@ -1,4 +1,4 @@
-Team,League,Division,Lat,Long
+﻿Team,League,Division,Lat,Long
 Dallas Mavericks,NBA,West,32.790556,-96.810278
 Orlando Magic,NBA,East,28.539167,-81.383611
 San Antonio Spurs,NBA,West,29.426944,-98.4375
@@ -99,3 +99,54 @@ St. Louis Cardinals,MLB,NL Central,38.6225,-90.193056
 Arizona Diamondbacks,MLB,NL West,33.445278,-112.066944
 New York Mets,MLB,NL East,40.756944,-73.845833
 Philadelphia Phillies,MLB,NL East,39.905833,-75.166389
+Detroit Tigers,MLB,AL Central,42.339167,-83.048611
+Colorado Rockies,MLB,NL West,39.756111,-104.994167
+Los Angeles Dodgers,MLB,NL West,34.073611,-118.24
+Boston Red Sox,MLB,AL East,42.34625,-71.09775
+Texas Rangers,MLB,AL West,32.747361,-97.084167
+Cincinnati Reds,MLB,NL Central,39.0975,-84.506667
+Chicago White Sox,MLB,AL Central,41.83,-87.633889
+Kansas City Royals,MLB,AL Central,39.051,-94.48
+Miami Marlins,MLB,NL East,25.778056,-80.219722
+Houston Astros,MLB,AL West,29.756944,-95.355556
+Washington Nationals,MLB,NL East,38.872778,-77.0075
+Oakland Athletics,MLB,AL West,37.751667,-122.200556
+San Francisco Giants,MLB,NL West,37.778611,-122.389167
+Baltimore Orioles,MLB,AL East,39.283889,-76.621667
+San Diego Padres,MLB,NL West,32.7073,-117.1566
+Pittsburgh Pirates,MLB,NL Central,40.446944,-80.005833
+Cleveland Guadians,MLB,AL Central,41.495833,-81.685278
+Toronto Blue Jays,MLB,AL East,43.641389,-79.389167
+Seattle Mariners,MLB,AL West,47.591,-122.333
+Minnesota Twins,MLB,AL Central,44.981667,-93.278333
+Tampa Bay Rays,MLB,AL East,27.768333,-82.653333
+Atlanta Braves,MLB,NL East,33.89,-84.468
+Chicago Cubs,MLB,NL Central,41.948056,-87.655556
+New York Yankees,MLB,AL East,40.829167,-73.926389
+Minnesota United FC,MLS,Western Conference,44.952778,-93.165
+D.C. United,MLS,Eastern Conference,38.868333,-77.012222
+Los Angeles FC,MLS,Western Conference,34.013056,-118.285
+Vancouver Whitecaps FC,MLS,Western Conference,49.276667,-123.111944
+Toronto FC,MLS,Eastern Conference,43.632778,-79.418611
+Sporting Kansas City,MLS,Western Conference,39.1218,-94.8237
+Colorado Rapids,MLS,Western Conference,39.805556,-104.891944
+LA Galaxy,MLS,Western Conference,33.864444,-118.261111
+Inter Miami CF,MLS,Eastern Conference,26.193056,-80.161111
+Orlando City SC,MLS,Eastern Conference,28.624397,-81.389036
+New England Revolution,MLS,Eastern Conference,42.090944,-71.264344
+Columbus Crew,MLS,Eastern Conference,39.968461,-83.017089
+Seattle Sounders FC,MLS,Western Conference,47.5952,-122.3316
+Atlanta United FC,MLS,Eastern Conference,33.755361,-84.401192
+Nashville SC,MLS,Eastern Conference,36.166389,-86.771389
+San Jose Earthquakes,MLS,Western Conference,37.351389,-121.925
+Houston Dynamo FC,MLS,Western Conference,29.7522,-95.3524
+Portland Timbers,MLS,Western Conference,45.521389,-122.691667
+Austin FC,MLS,Western Conference,30.388206,-97.719864
+New York Red Bulls,MLS,Eastern Conference,40.736667,-74.150278
+Real Salt Lake,MLS,Western Conference,40.582923,-111.893156
+CF Montréal,MLS,Eastern Conference,45.563056,-73.5525
+Chicago Fire FC,MLS,Eastern Conference,41.8623,-87.6167
+Philadelphia Union,MLS,Eastern Conference,39.832222,-75.378889
+FC Dallas,MLS,Western Conference,33.154444,-96.835278
+FC Cincinnati,MLS,Eastern Conference,39.111389,-84.522222
+New York City FC,MLS,Eastern Conference,40.829167,-73.926389

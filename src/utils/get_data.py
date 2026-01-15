@@ -1,6 +1,10 @@
 import kagglehub as kg
 import shutil
 from pathlib import Path
+import requests
+import zipfile
+import io
+import os
 
 # Downloading NBA Finals and MVP.csv
 path_fnm = kg.dataset_download("thedevastator/historical-nba-finals-and-mvp-results")
@@ -16,12 +20,6 @@ dest_g = Path("data/raw/csvs/games.csv")
 # No need of checking parent here because we did it earlier
 shutil.copy(games, dest_g)  
 
-# Downloading schedule2026.csv
-schedule = Path(path_g) / "LeagueSchedule25_26.csv"
-dest_s = Path("data/raw/csvs/schedule26.csv")
-# No need of checking parent here because we did it earlier
-shutil.copy(schedule, dest_s)
-
 # Downloading franchise_locations.csv
 path_fl = kg.dataset_download("logandonaldson/sports-stadium-locations")
 locations = Path(path_fl) / "stadiums.csv"
@@ -34,4 +32,35 @@ path_pl = kg.dataset_download("robertsunderhaft/nba-player-season-statistics-wit
 stats = Path(path_pl) / "NBA_Dataset.csv"
 dest_ps = Path("data/raw/csvs/nba_player_stats.csv")
 # No need of checking parent here because we did it earlier
-shutil.copy(stats, dest_s)
+shutil.copy(stats, dest_ps)
+
+# Downloading canada_cities.csv
+can_url = "https://simplemaps.com/static/data/canada-cities/1.8/basic/simplemaps_canadacities_basicv1.8.zip"
+dest_cc = Path("data/raw/csvs")
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+can_cities = requests.get(can_url, headers=headers) # Download the csv file
+can_cities.raise_for_status()      # Warn if the download fail
+with zipfile.ZipFile(io.BytesIO(can_cities.content)) as ref_can:
+    ref_can.extractall(dest_cc)
+name = dest_cc / "canadacities.csv"
+new_name = dest_cc / "canada_cities.csv"
+name.rename(new_name)
+os.remove(Path("data/raw/csvs/license.txt"))
+os.remove(Path("data/raw/csvs/canadacities.sql"))
+os.remove(Path("data/raw/csvs/canadacities.xlsx"))
+
+# Downloading us_cities.csv
+us_url = "https://simplemaps.com/static/data/us-cities/1.92/basic/simplemaps_uscities_basicv1.92.zip"
+dest_uc = Path("data/raw/csvs")
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+
+us_cities = requests.get(us_url, headers=headers)
+us_cities.raise_for_status()      # Warn if the download fail
+with zipfile.ZipFile(io.BytesIO(us_cities.content)) as ref_us:
+    ref_us.extractall(dest_uc)
+name = dest_cc / "uscities.csv"
+new_name = dest_cc / "us_cities.csv"
+name.rename(new_name)
+os.remove(Path("data/raw/csvs/license.txt"))
+os.remove(Path("data/raw/csvs/uscities.xlsx"))
+

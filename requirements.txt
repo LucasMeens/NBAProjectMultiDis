@@ -4,5 +4,4 @@ pandas
 numpy
 bokeh
 kagglehub
-shutil
-pathlib
+requests

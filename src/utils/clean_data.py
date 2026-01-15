@@ -2,8 +2,8 @@ import pandas as pd
 
 # Cleaning and writing the "cities.csv" file for population density
 
-us_cities = pd.read_csv("data/raw/csvs/uscities.csv")
-canada_cities = pd.read_csv("data/raw/csvs/canadacities.csv")
+us_cities = pd.read_csv("data/raw/csvs/us_cities.csv")
+canada_cities = pd.read_csv("data/raw/csvs/canada_cities.csv")
 
 us_select = us_cities[["city", "density", "lat", "lng"]]
 canada_select = canada_cities[["city", "density", "lat", "lng"]]
@@ -36,7 +36,7 @@ selection.to_csv("data/cleaned/franchises.csv", index=False)
 
 # Cleaning and writing the "wins.csv" file for NBA finals, winners, mvp, etc..
 
-wins = pd.read_csv("data/raw/csvs/NBA Finals and MVP.csv")
+wins = pd.read_csv("data/raw/csvs/finals_n_mvp.csv")
 
 wins = wins.rename(columns={
     "Year": "year",
