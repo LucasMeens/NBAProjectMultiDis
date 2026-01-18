@@ -14,7 +14,6 @@ def nba_map_component(df_f, df_cities, selected_team, options):
     if "logos" in options and not df_f.empty:
         dff = df_f.copy()
         
-        # Gestion des doublons de coordonnées
         mask = dff.duplicated(subset=['lat', 'lng'], keep=False)
         dff.loc[mask, 'lat'] += np.random.uniform(-0.04, 0.04, size=mask.sum())
         dff.loc[mask, 'lng'] += np.random.uniform(-0.04, 0.04, size=mask.sum())
@@ -22,18 +21,15 @@ def nba_map_component(df_f, df_cities, selected_team, options):
         if selected_team != "ALL":
             dff = dff[dff['franchise'] == selected_team]
 
-        # On ajoute les points invisibles pour le hover text
         fig.add_trace(go.Scattermapbox(
             lat=dff['lat'], lon=dff['lng'],
             mode='markers',
-            marker=dict(size=20, opacity=0), # Invisible mais capte le survol
+            marker=dict(size=20, opacity=0), 
             text=dff['franchise'],
             hoverinfo='text'
         ))
 
-        # Ajout des logos via layout images
         for _, row in dff.iterrows():
-            # Logique de nommage des fichiers
             city_name = str(row['city']).lower()
             franchise = str(row['franchise']).lower()
             
