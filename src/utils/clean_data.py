@@ -1,43 +1,60 @@
 import pandas as pd
 
+# ---------------------------------------------------------------------
 # Cleaning and writing the "cities.csv" file for population density
+# ---------------------------------------------------------------------
 
-us_cities = pd.read_csv("data/raw/csvs/us_cities.csv")
-canada_cities = pd.read_csv("data/raw/csvs/canada_cities.csv")
+#Getting the csv's data
+us_cities = pd.read_csv("data/raw/csvs/us_cities.csv") # Getting the US Citie's data
+canada_cities = pd.read_csv("data/raw/csvs/canada_cities.csv") # Getting the Canada Citie's data
 
-us_select = us_cities[["city", "density", "lat", "lng"]]
+# Selectioning only the columns useful to us
+us_select = us_cities[["city", "density", "lat", "lng"]] 
 canada_select = canada_cities[["city", "density", "lat", "lng"]]
 
+# Concatenating US Cities and Canada Cities in one file
 concatenation = pd.concat([us_select, canada_select], ignore_index=True)
 
+# Prevent duplicates because US and Canada csvs are made by merging many datasets.
 concatenation_unique = (
     concatenation
-    .assign(city=concatenation["city"].str.strip().str.title()) # Preventing duplicate caused by merging different datasets
-    .sort_values("density", ascending=False)
+    .assign(city=concatenation["city"].str.strip().str.title())
     .drop_duplicates(subset="city")
 )
 
+# Creating the cleaned csv file
 concatenation_unique.to_csv("data/cleaned/cities.csv", index=False)
 
+# ---------------------------------------------------------------------
 # Cleaning and writing the "franchises.csv" file for NBA franchises location
+# ---------------------------------------------------------------------
 
+# Getting the csv's data
 franchises = pd.read_csv("data/raw/csvs/franchise_locations.csv")
 
+# Selecting only the NBA franchises
 NBA = franchises[franchises["League"] == "NBA"]
+# Selecting only the columns useful for our us
 selection = NBA[["Team", "Lat", "Long"]]
 
+# Rename the colums to make a certain norm
 selection = selection.rename(columns={
     "Team":"franchise",
     "Lat": "lat",
     "Long": "lng"
-})
+})                                      
 
+# Creating the cleaned csv file
 selection.to_csv("data/cleaned/franchises.csv", index=False)
 
+# ---------------------------------------------------------------------
 # Cleaning and writing the "wins.csv" file for NBA finals, winners, mvp, etc..
+# ---------------------------------------------------------------------
 
+# Getting the csv's data
 wins = pd.read_csv("data/raw/csvs/finals_n_mvp.csv")
 
+# Rename the columns to follow our norm
 wins = wins.rename(columns={
     "Year": "year",
     "Western Champion": "west_champion",
@@ -46,15 +63,19 @@ wins = wins.rename(columns={
     "NBA Champion": "champion",
     "MVP Name": "mvp",
     "MVP Team": "mvp_team",
-})
+})                                      
 
+# Selecting the columns
 wins_selected = wins[["year", "west_champion", "east_champion", "result", "champion", "mvp", "mvp_team"]]
 
+# Creating the cleaned csv file
 wins_selected.to_csv("data/cleaned/wins.csv", index=False)
 
+# ---------------------------------------------------------------------
 # Cleaning and writing the "games.csv" file for our graphics on points averages by year
-# 21800549
+# ---------------------------------------------------------------------
 
+# Getting the csv's data
 games = pd.read_csv(
     "data/raw/csvs/games.csv",
     usecols=[
@@ -71,16 +92,18 @@ games = pd.read_csv(
     ]
 )
 
+# Rename the colums to follow our norm
 games = games.rename(columns={
     "hometeamCity": "home_city",
     "hometeamName": "home_name",
     "awayteamCity": "away_city",
-    "awayteamName": "away_name",
+    "awayteamName": "away_name",     
     "homeScore": "home_score",
     "awayScore": "away_score",
     "gameDateTimeEst" : "year",
 })
 
+# Function to return the winnner team's name of a match
 def get_winner(row):
     if row["winner"] == row["hometeamId"]:
         return row["home_name"]
@@ -89,16 +112,25 @@ def get_winner(row):
     else:
         return None
 
-games["winner_name"] = games.apply(get_winner, axis=1)
-games["year"] = games["year"].str[:4]
+# Replacing the winnerId column by a winner column containing the name
+games["winner_name"] = games.apply(get_winner, axis=1) 
+# Getting the year of each match by croping the gameDateTimeEst
+games["year"] = games["year"].str[:4] 
 
+# Selecting the columns useful for us
 games_selected = games[["year", "home_city", "home_name", "away_city", "away_name", "home_score", "away_score", "winner_name"]]
 
+# Creating the cleaned csv file
 games_selected.to_csv("data/cleaned/games.csv", index=False)
-# Cleaning and writing 'players.csv' file for player's stat
 
+# ---------------------------------------------------------------------
+# Cleaning and writing 'players.csv' file for player's stat
+# ---------------------------------------------------------------------
+
+# Getting the csv's data
 players_stats = pd.read_csv("data/raw/csvs/nba_player_stats.csv")
 
+# Selecting the columns useful for us
 players_selected = players_stats[[
     "season", "player", "pos", "age", 
     "team_id", "g", "mp_per_g", "pts_per_g",
@@ -106,6 +138,7 @@ players_selected = players_stats[[
     "fg_pct", "fg3_pct", "ft_pct"
 ]]
 
+# Renaming the columns to match our norm
 players_selected = players_selected.rename(columns={
     "g" : "games",
     "mp_per_g" : "min_per_game",
@@ -119,6 +152,7 @@ players_selected = players_selected.rename(columns={
     "ft_pct" : "total_percentage",
 })
 
+# Creating the cleaned csv file
 players_selected.to_csv("data/cleaned/players_stats.csv", index=False)
 
 
