@@ -66,7 +66,8 @@ games = pd.read_csv(
         "awayScore",
         "winner",
         "hometeamId",
-        "awayteamId"
+        "awayteamId",
+        "gameDateTimeEst"
     ]
 )
 
@@ -77,6 +78,7 @@ games = games.rename(columns={
     "awayteamName": "away_name",
     "homeScore": "home_score",
     "awayScore": "away_score",
+    "gameDateTimeEst" : "year",
 })
 
 def get_winner(row):
@@ -88,11 +90,11 @@ def get_winner(row):
         return None
 
 games["winner_name"] = games.apply(get_winner, axis=1)
+games["year"] = games["year"].str[:4]
 
-games_selected = games[["home_city", "home_name", "away_city", "away_name", "home_score", "away_score", "winner_name"]]
+games_selected = games[["year", "home_city", "home_name", "away_city", "away_name", "home_score", "away_score", "winner_name"]]
 
 games_selected.to_csv("data/cleaned/games.csv", index=False)
-
 # Cleaning and writing 'players.csv' file for player's stat
 
 players_stats = pd.read_csv("data/raw/csvs/nba_player_stats.csv")
