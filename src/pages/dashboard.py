@@ -103,12 +103,19 @@ def update_wins_analysis(team, season):
     else:
         nickname = str(team).split()[-1].strip()
         df_team_wins = df_all_games[df_all_games['winner_name'].astype(str).str.contains(nickname, case=False, na=False)].copy()
-        if df_team_wins.empty: return go.Figure(layout={"title": f"0 victoires pour {nickname}"})
+
+        if df_team_wins.empty: 
+            return go.Figure(layout={"title": f"0 victoires pour {nickname}"})
+        
         df_team_wins['Lieu'] = df_team_wins.apply(lambda r: '🏠 Domicile' if nickname.lower() in str(r['home_name']).lower() else '✈️ Extérieur', axis=1)
+        
         data = df_team_wins['Lieu'].value_counts().reset_index()
         data.columns = ['Lieu', 'Victoires']
+        
         fig = px.bar(data, x='Lieu', y='Victoires', title=f"Victoires : {team}", color='Lieu', color_discrete_map={'🏠 Domicile': '#1d4ed8', '✈️ Extérieur': '#60a5fa'})
+    
     fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', title_x=0.5)
+    
     return fig
 
 @callback(Output("ratio-pie", "figure"), [Input("team-dropdown", "value"), Input("season-dropdown", "value")])

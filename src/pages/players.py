@@ -1,6 +1,6 @@
 from dash import html, dcc
 import plotly.express as px
-from src.backend.stats_service import load_players, get_shot_heatmap
+from src.stats_service import load_players, get_shot_heatmap
 
 def players_layout():
     players_df = load_players()
