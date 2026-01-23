@@ -2,9 +2,9 @@ from dash import html, dcc, callback, Input, Output, dash_table
 import plotly.express as px
 import plotly.graph_objects as go
 from src.stats_service import *
-from src.components.header import header
-from src.components.charts import charts_block
-from src.components.team_cards import team_cards_component
+from src.components.components.header import header
+from src.components.components.charts import charts_block
+from src.components.components.team_cards import team_cards_component
 
 def dashboard_layout():
     teams = get_team_list()

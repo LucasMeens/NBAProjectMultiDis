@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 from bokeh.io import output_notebook, show
 from bokeh.plotting import figure
