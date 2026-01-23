@@ -104,3 +104,6 @@ def get_finals_history(team="ALL"):
     return wins[(wins['champion'].astype(str).str.contains(nickname, case=False, na=False)) | 
                 (wins['west_champion'].astype(str).str.contains(nickname, case=False, na=False)) | 
                 (wins['east_champion'].astype(str).str.contains(nickname, case=False, na=False))]
+
+def load_map_data():
+    return franchises, cities
