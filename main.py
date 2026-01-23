@@ -1,6 +1,6 @@
 import dash
 from dash import Input, Output
-from src.components.containers.dashboard import dashboard_layout
+from src.components.containers.dashboard_view import dashboard_layout
 from src.components.components.nba_map import nba_map_component
 from src.stats_service import load_map_data
 
