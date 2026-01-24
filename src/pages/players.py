@@ -10,40 +10,44 @@ def layout():
     [
         header(),
 
-        html.H3("🔍 Recherche Statistique Joueur", style={"marginTop": "20px", "color": "#1f2937"}),
-        dcc.Input(
-            id="player-search-input", 
-            type="text", 
-            placeholder="Entrez le nom d'un joueur (ex: LeBron)...", 
-            style={
-                "width": "100%", 
-                "padding": "12px", 
-                "borderRadius": "8px", 
-                "border": "1px solid #d1d5db", 
-                "marginBottom": "20px"
-            }
-        ),
-        dash_table.DataTable(
-            id="player-stats-table",
-            columns=[
-                {"name": "Saison", "id": "season"},
-                {"name": "Joueur", "id": "player"},
-                {"name": "Points/M", "id": "points_per_game"},
-                {"name": "Passes/M", "id": "assists_per_game"},
-                {"name": "Rebonds/M", "id": "rebounds_per_game"}
+        html.Div(
+            [
+                html.H3("🔍 Recherche Statistique Joueur", style={"marginTop": "20px", "color": "#1f2937"}),
+                dcc.Input(
+                    id="player-search-input", 
+                    type="text", 
+                    placeholder="Entrez le nom d'un joueur (ex: LeBron)...", 
+                    style={
+                        "width": "100%", 
+                        "padding": "12px", 
+                        "borderRadius": "8px", 
+                        "border": "1px solid #d1d5db", 
+                        "marginBottom": "20px"
+                    }
+                ),
+                dash_table.DataTable(
+                    id="player-stats-table",
+                    columns=[
+                        {"name": "Saison", "id": "season"},
+                        {"name": "Joueur", "id": "player"},
+                        {"name": "Points/M", "id": "points_per_game"},
+                        {"name": "Passes/M", "id": "assists_per_game"},
+                        {"name": "Rebonds/M", "id": "rebounds_per_game"}
+                    ],
+                    style_table={'overflowX': 'auto', 'borderRadius': '10px', 'overflow': 'hidden'},
+                    style_header={'backgroundColor': '#3b82f6', 'color': 'white', 'fontWeight': 'bold'},
+                    style_cell={'textAlign': 'center', 'padding': '10px'},
+                    page_size=10
+                )
             ],
-            style_table={'overflowX': 'auto', 'borderRadius': '10px', 'overflow': 'hidden'},
-            style_header={'backgroundColor': '#3b82f6', 'color': 'white', 'fontWeight': 'bold'},
-            style_cell={'textAlign': 'center', 'padding': '10px'},
-            page_size=10
-        )
+            style={
+                "padding": "20px", 
+                "backgroundColor": "#f3f4f6", 
+                "margin": "20px", 
+                "borderRadius": "12px"
+            }
+        ),  
     ], 
-    style={
-        "padding": "20px", 
-        "backgroundColor": "#f3f4f6", 
-        "margin": "20px", 
-        "borderRadius": "12px"
-    }
 ),
 
 @callback(

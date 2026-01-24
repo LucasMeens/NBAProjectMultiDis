@@ -7,7 +7,7 @@ app = dash.Dash(__name__, use_pages=True, pages_folder="src/pages", suppress_cal
 app.layout = html.Div(
     [
         dash.page_container
-    ]
+    ],
 )
 
 @app.callback(

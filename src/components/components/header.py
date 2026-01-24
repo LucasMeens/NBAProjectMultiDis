@@ -2,26 +2,31 @@ import dash
 from dash import html, dcc
 
 def header():
-    return html.Div(
+    return html.Header(
         [
-            html.H1("NBA Analytics Dashboard", style={"margin": 0, "letterSpacing": "1px"}),
-            html.P(
-                "Analyse complète : Franchises, Densité Urbaine, Performances et Palmarès.",
-                style={"marginTop": 5, "color": "#9ca3af", "fontSize": "14px"},
-            ),
             html.Div(
                 [
-                    html.Div(
-                        dcc.Link(f"{page['name']}", href=page["relative_path"]) 
-                    )for page in dash.page_registry.values()
-                ]
-            ) 
+                    html.H1("NBA Analytics", style={"margin": 0, "fontSize": "24px"}),
+                    html.P(
+                        "Analyse complète des franchises NBA",
+                        style={"margin": 0, "color": "#9ca3af", "fontSize": "12px"},
+                    ),
+                ],
+                className="header-text"
+            ),
+            
+            html.Nav(
+                [
+                    dcc.Link(
+                        page["name"], 
+                        href=page["relative_path"],
+                        className="navigation-link"
+                    ) for page in dash.page_registry.values()
+                ],
+                className="navigation"
+            )
         ],
-        style={
-            "padding": "20px 30px",
-            "backgroundColor": "#111827", # Noir profond
-            "color": "white",
-            "borderBottom": "2px solid #1d4ed8", # Ligne bleue NBA
-            "fontFamily": "sans-serif"
-        },
+        className="header",
+        style={"fontFamily": "sans-serif"}
     )
+    
