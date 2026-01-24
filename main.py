@@ -1,11 +1,21 @@
 import dash
-from dash import Input, Output
-from src.components.containers.dashboard_view import dashboard_layout
+from dash import Input, Output, html, dcc
 from src.components.components.nba_map import nba_map_component
 from src.stats_service import load_map_data
 
-app = dash.Dash(__name__, suppress_callback_exceptions=True)
-app.layout = dashboard_layout()
+app = dash.Dash(__name__, use_pages=True, pages_folder="src/pages", suppress_callback_exceptions=True)
+app.layout = html.Div(
+    [
+        html.Div(
+            [
+                html.Div(
+                    dcc.Link(f"{page['name']} - {page['path']}", href=page["relative_path"])
+                ) for page in dash.page_registry.values()
+            ]
+        ),
+        dash.page_container
+    ]
+)
 
 @app.callback(
     Output("map-container", "children"),

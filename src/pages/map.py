@@ -2,7 +2,7 @@ import dash
 from dash import html
 from src.components.components.header import *
 from src.components.components.filter import *
-from src.components.components.team_cards import team_cards_component()
+from src.components.components.team_cards import team_cards_component
 
 dash.register_page(__name__)
 
