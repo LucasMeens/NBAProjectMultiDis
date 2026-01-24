@@ -1,11 +1,15 @@
 import dash 
 from dash import html, dcc, callback, Input, Output, dash_table
 from src.stats_service import get_player_stats
+from src.components.components.header import header
 
 dash.register_page(__name__)
 
-layout = html.Div(
+def layout():
+    return html.Div(
     [
+        header(),
+
         html.H3("🔍 Recherche Statistique Joueur", style={"marginTop": "20px", "color": "#1f2937"}),
         dcc.Input(
             id="player-search-input", 

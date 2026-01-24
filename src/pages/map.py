@@ -8,7 +8,8 @@ dash.register_page(__name__)
 
 _, seasons, options_teams = get_variables()
 
-layout = html.Div(
+def layout():
+    return html.Div(
     [
         header(),
         filter(seasons, options_teams),

@@ -1,4 +1,5 @@
-from dash import html
+import dash
+from dash import html, dcc
 
 def header():
     return html.Div(
@@ -8,6 +9,13 @@ def header():
                 "Analyse complète : Franchises, Densité Urbaine, Performances et Palmarès.",
                 style={"marginTop": 5, "color": "#9ca3af", "fontSize": "14px"},
             ),
+            html.Div(
+                [
+                    html.Div(
+                        dcc.Link(f"{page['name']}", href=page["relative_path"]) 
+                    )for page in dash.page_registry.values()
+                ]
+            ) 
         ],
         style={
             "padding": "20px 30px",

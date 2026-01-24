@@ -6,13 +6,6 @@ from src.stats_service import load_map_data
 app = dash.Dash(__name__, use_pages=True, pages_folder="src/pages", suppress_callback_exceptions=True)
 app.layout = html.Div(
     [
-        html.Div(
-            [
-                html.Div(
-                    dcc.Link(f"{page['name']} - {page['path']}", href=page["relative_path"])
-                ) for page in dash.page_registry.values()
-            ]
-        ),
         dash.page_container
     ]
 )
