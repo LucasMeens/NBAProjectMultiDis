@@ -33,5 +33,5 @@ map.add_glyph(source, logos_map)
 hover = HoverTool(tooltips=[("Franchise", "@franchise")])
 map.add_tools(hover)
 
-show(p)
+show(map)
 
