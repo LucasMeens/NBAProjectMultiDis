@@ -42,10 +42,7 @@ def layout():
                     className="container-div"
                 ), 
             ],
-            style={
-                "display": "flex",
-                "justifyContent": "center",
-            }
+            className="flex-box"
         )
     ], 
     style={

@@ -4,6 +4,10 @@ body {
     background-color: #1D428A;
 }
 
+/* ------------------------------------------------------------
+                            Header
+   ------------------------------------------------------------- */
+
 .header {
     display: flex;
     justify-content: space-between; 
@@ -46,6 +50,10 @@ body {
     font-size: larger;
 }
 
+/* ------------------------------------------------------------
+                            Player Page
+   ------------------------------------------------------------- */
+
 .players-input {
     width : 100%;
     padding : 12px; 
@@ -67,5 +75,23 @@ body {
     padding : 20px; 
     background-color : #f3f4f6;
     margin : 20px ;
-    border-radius : 12px;          
+    border-radius : 12px;       
+}
+
+.flex-box {
+    display: flex;
+    justify-content: center;
+}
+
+/* ------------------------------------------------------------
+                            Map Page
+   ------------------------------------------------------------- */
+
+.map-container {
+    width: 80%;
+    min-width: 800px;
+    background-color : #f3f4f6;
+    padding : 20px ;
+    margin: 20px;
+    border-radius : 12px;       
 }
