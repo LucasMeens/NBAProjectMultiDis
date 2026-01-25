@@ -1,6 +1,7 @@
 body {
     margin : 0;
     padding : 0;
+    background-color: #1D428A;
 }
 
 .header {
@@ -9,7 +10,6 @@ body {
     align-items: center; 
     padding: 0 30px; 
     background-color: #111827;
-    border-bottom: 2px solid #1d4ed8;
     height: 80px; 
 }
 
@@ -44,4 +44,28 @@ body {
     background-color: #1d4ed8; 
     color: white;
     font-size: larger;
+}
+
+.players-input {
+    width : 100%;
+    padding : 12px; 
+    border-radius : 8px; 
+    border : 1px solid #d1d5db; 
+    margin-bottom : 20px;
+    box-sizing : border-box;
+}
+
+.player-title {
+    margin : 0px 0px 20px 0px;
+    color : #1f2937;
+    font-family : sans-serif;
+}
+
+.container-div {
+    width: 80%;
+    min-width: 800px;
+    padding : 20px; 
+    background-color : #f3f4f6;
+    margin : 20px ;
+    border-radius : 12px;          
 }
