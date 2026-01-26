@@ -16,129 +16,137 @@ def layout():
     [
         header(),
         filter(seasons, options_teams),
+        
         html.Div(
             [
                 html.Div(
-                    [       
+                    [
                         html.Div(
-                            [
-                                team_cards_component()
+                            [       
+                                html.Div(
+                                    [
+                                        team_cards_component()
+                                    ], 
+                                    style={
+                                        "width": "68%", 
+                                        "display": "inline-block", 
+                                        "marginLeft": "3%"
+                                    }
+                                ),
                             ], 
                             style={
-                                "width": "68%", 
-                                "display": "inline-block", 
-                                "marginLeft": "3%"
+                                "padding": "20px", 
+                                "display": "flex", 
+                                "alignItems": "stretch"
                             }
                         ),
-                    ], 
-                    style={
-                        "padding": "20px", 
-                        "display": "flex", 
-                        "alignItems": "stretch"
-                    }
-                ),
 
-                html.Div(
-                    [ 
-                        # ---------------------------------------
-                        # First Graph : Points histogram
-                        # ---------------------------------------
-                        html.Div([
-                            html.Div([
-                                dcc.Graph(
-                                    id="pts-hist",
-                                    config={'displayModeBar': False} # Masque la barre d'outils pour un look plus propre
-                                )
-                            ], style={
-                                "backgroundColor": "white", 
-                                "padding": "10px", 
-                                "borderRadius": "10px", 
-                                "boxShadow": "0 4px 6px rgba(0,0,0,0.1)"
-                            })
-                        ], style={"width": "32%", "display": "inline-block", "marginRight": "1%"}),
-                        
-                        # ---------------------------------------
-                        # Second Graph : Victory analysis
-                        # ---------------------------------------
-                        html.Div([
-                            html.Div([
-                                dcc.Graph(
-                                    id="wins-hist",
-                                    config={'displayModeBar': False}
-                                )
-                            ], style={
-                                "backgroundColor": "white", 
-                                "padding": "10px", 
-                                "borderRadius": "10px", 
-                                "boxShadow": "0 4px 6px rgba(0,0,0,0.1)"
-                            })
-                        ], style={"width": "32%", "display": "inline-block", "marginRight": "1%"}),
-                        
-                        # ---------------------------------------
-                        # Third Graph : Wins/Lose Ratio
-                        # ---------------------------------------        
-                        html.Div([
-                            html.Div([
-                                dcc.Graph(
-                                    id="ratio-pie",
-                                    config={'displayModeBar': False}
-                                )
-                            ], style={
-                                "backgroundColor": "white", 
-                                "padding": "10px", 
-                                "borderRadius": "10px", 
-                                "boxShadow": "0 4px 6px rgba(0,0,0,0.1)"
-                            })
-                        ], style={"width": "32%", "display": "inline-block"}),
+                        html.Div(
+                            [ 
+                                # ---------------------------------------
+                                # First Graph : Points histogram
+                                # ---------------------------------------
+                                html.Div([
+                                    html.Div([
+                                        dcc.Graph(
+                                            id="pts-hist",
+                                            config={'displayModeBar': False} # Masque la barre d'outils pour un look plus propre
+                                        )
+                                    ], style={
+                                        "backgroundColor": "white", 
+                                        "borderRadius": "10px", 
+                                        "paddingRight" : "10px",
+                                        "boxShadow": "0 4px 6px rgba(0,0,0,0.1)"
+                                    })
+                                ], style={"width": "32%", "display": "inline-block", "marginRight": "1%"}),
+                                
+                                # ---------------------------------------
+                                # Second Graph : Victory analysis
+                                # ---------------------------------------
+                                html.Div([
+                                    html.Div([
+                                        dcc.Graph(
+                                            id="wins-hist",
+                                            config={'displayModeBar': False},
+                                        )
+                                    ], style={
+                                        "backgroundColor": "white", 
+                                        "paddingRight" : "10px",
+                                        "borderRadius": "10px", 
+                                        "boxShadow": "0 4px 6px rgba(0,0,0,0.1)"
+                                    })
+                                ], style={"width": "32%", "display": "inline-block", "marginRight": "1%"}),
+                                
+                                # ---------------------------------------
+                                # Third Graph : Wins/Lose Ratio
+                                # ---------------------------------------        
+                                html.Div([
+                                    html.Div([
+                                        dcc.Graph(
+                                            id="ratio-pie",
+                                            config={'displayModeBar': False}
+                                        )
+                                    ], style={
+                                        "backgroundColor": "white", 
+                                        "paddingRight" : "10px",
+                                        "borderRadius": "10px", 
+                                        "boxShadow": "0 4px 6px rgba(0,0,0,0.1)"
+                                    })
+                                ], style={"width": "32%", "display": "inline-block"}),
 
-                    ], 
-                    style={
-                        "display": "flex", 
-                        "justifyContent": "space-between", 
-                        "marginTop": "20px",
-                        "flexWrap": "wrap" # Permet de passer à la ligne sur petit écran
-                    }
-                ),
-
-                html.Div(
-                    [
-                        html.H3(
-                            "📜 Historique des Finales NBA", 
+                            ], 
                             style={
-                                "marginTop": "40px", 
-                                "color": "#1f2937"
+                                "display": "flex", 
+                                "justifyContent": "space-between", 
+                                "marginTop": "20px",
+                                "flexWrap": "wrap" # Permet de passer à la ligne sur petit écran
                             }
                         ),
-                        dash_table.DataTable(
-                            id="finals-table",
-                            columns=[
-                                {"name": "Année", "id": "year"},
-                                {"name": "Champion Ouest", "id": "west_champion"},
-                                {"name": "Champion Est", "id": "east_champion"},
-                                {"name": "Vainqueur", "id": "champion"},
-                                {"name": "MVP", "id": "mvp"}
-                            ],
-                            style_table={'overflowX': 'auto', 'borderRadius': '10px', 'overflow': 'hidden'},
-                            style_header={'backgroundColor': '#1f2937', 'color': 'white', 'fontWeight': 'bold'},
-                            style_cell={'textAlign': 'center', 'padding': '10px', 'fontFamily': 'sans-serif'},
-                            page_size=10
-                        )
-                    ], 
-                    style={"padding": "20px"}
-                ),
 
-                html.Div(
-                    id="finale-recap-container", 
+                        html.Div(
+                            [
+                                html.H3(
+                                    "📜 Historique des Finales NBA", 
+                                    style={
+                                        "marginTop": "40px", 
+                                        "color": "#1f2937"
+                                    }
+                                ),
+                                dash_table.DataTable(
+                                    id="finals-table",
+                                    columns=[
+                                        {"name": "Année", "id": "year"},
+                                        {"name": "Champion Ouest", "id": "west_champion"},
+                                        {"name": "Champion Est", "id": "east_champion"},
+                                        {"name": "Vainqueur", "id": "champion"},
+                                        {"name": "MVP", "id": "mvp"}
+                                    ],
+                                    style_table={'overflowX': 'auto', 'borderRadius': '10px', 'overflow': 'hidden'},
+                                    style_header={'backgroundColor': '#1f2937', 'color': 'white', 'fontWeight': 'bold'},
+                                    style_cell={'textAlign': 'center', 'fontFamily': 'sans-serif'},
+                                    page_size=10
+                                )
+                            ], 
+                        ),
+
+                        html.Div(
+                            id="finale-recap-container", 
+                            style={
+                                "margin": "40px 0px", 
+                                "padding": "30px", 
+                                "backgroundColor": "#111827", 
+                                "color": "white", 
+                                "borderRadius": "15px", 
+                                "textAlign": "center"
+                            }
+                        ), 
+                    ],
                     style={
-                        "margin": "40px 20px", 
-                        "padding": "30px", 
-                        "backgroundColor": "#111827", 
-                        "color": "white", 
-                        "borderRadius": "15px", 
-                        "textAlign": "center"
+                        "width" : "80%"
                     }
-                ), 
-            ]
+                ),
+            ],
+            className="flex-box"
         ),
     ]
 )
