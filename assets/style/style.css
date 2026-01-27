@@ -95,3 +95,55 @@ body {
     margin: 20px;
     border-radius : 12px;       
 }
+
+/* ------------------------------------------------------------
+                            Charts Page
+   ------------------------------------------------------------- */
+
+.charts-page {
+    width: 80%;
+}
+
+.finals-recap {
+    margin : 40px 0px; 
+    padding : 30px;
+    background-color : #111827; 
+    color : white;
+    border-radius : 15px; 
+    text-align : center;
+    font-family: sans-serif;
+}
+
+.data-table-title {
+    margin-top : 50px;
+    margin-bottom : 25px; 
+    color : #FAFAFA;
+    font-family : sans-serif;
+    text-align : center;
+}
+
+.graphs-container {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 20px;
+    flex-wrap: wrap; 
+}
+
+.graph {
+    background-color: white; 
+    padding-right: 10px;
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.one-graphs {
+    width: 32%;
+    display: inline-block;
+    margin-right: 1%;
+}
+
+.other-graph {
+    width: 32%;
+    display: inline-block;
+}

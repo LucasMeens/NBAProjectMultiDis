@@ -29,14 +29,14 @@ def layout():
                                     ], 
                                     style={
                                         "width": "68%", 
-                                        "display": "inline-block", 
+                                        "display": "inline-block",  # I don't know what is it so i let it for now
                                         "marginLeft": "3%"
                                     }
                                 ),
                             ], 
                             style={
                                 "padding": "20px", 
-                                "display": "flex", 
+                                "display": "flex",              # I don't know what is it so i let it for now
                                 "alignItems": "stretch"
                             }
                         ),
@@ -46,71 +46,66 @@ def layout():
                                 # ---------------------------------------
                                 # First Graph : Points histogram
                                 # ---------------------------------------
-                                html.Div([
-                                    html.Div([
-                                        dcc.Graph(
-                                            id="pts-hist",
-                                            config={'displayModeBar': False} # Masque la barre d'outils pour un look plus propre
+                                html.Div(
+                                    [
+                                        html.Div(
+                                            [
+                                                dcc.Graph(
+                                                    id="pts-hist",
+                                                    config={'displayModeBar': False} # Masque la barre d'outils pour un look plus propre
+                                                )
+                                            ], 
+                                            className="graph"
                                         )
-                                    ], style={
-                                        "backgroundColor": "white", 
-                                        "borderRadius": "10px", 
-                                        "paddingRight" : "10px",
-                                        "boxShadow": "0 4px 6px rgba(0,0,0,0.1)"
-                                    })
-                                ], style={"width": "32%", "display": "inline-block", "marginRight": "1%"}),
+                                    ], 
+                                    className="one-graphs"
+                                ),
                                 
                                 # ---------------------------------------
                                 # Second Graph : Victory analysis
                                 # ---------------------------------------
-                                html.Div([
-                                    html.Div([
-                                        dcc.Graph(
-                                            id="wins-hist",
-                                            config={'displayModeBar': False},
+                                html.Div(
+                                    [
+                                        html.Div(
+                                            [
+                                                dcc.Graph(
+                                                    id="wins-hist",
+                                                    config={'displayModeBar': False},
+                                                ),
+                                            ],
+                                            className="graph"
                                         )
-                                    ], style={
-                                        "backgroundColor": "white", 
-                                        "paddingRight" : "10px",
-                                        "borderRadius": "10px", 
-                                        "boxShadow": "0 4px 6px rgba(0,0,0,0.1)"
-                                    })
-                                ], style={"width": "32%", "display": "inline-block", "marginRight": "1%"}),
+                                    ], 
+                                    className="one-graphs"
+                                ),
                                 
                                 # ---------------------------------------
                                 # Third Graph : Wins/Lose Ratio
                                 # ---------------------------------------        
-                                html.Div([
-                                    html.Div([
-                                        dcc.Graph(
-                                            id="ratio-pie",
-                                            config={'displayModeBar': False}
+                                html.Div(
+                                    [
+                                        html.Div(
+                                            [
+                                                dcc.Graph(
+                                                    id="ratio-pie",
+                                                    config={'displayModeBar': False}
+                                                )
+                                            ],
+                                            className="graph"
                                         )
-                                    ], style={
-                                        "backgroundColor": "white", 
-                                        "paddingRight" : "10px",
-                                        "borderRadius": "10px", 
-                                        "boxShadow": "0 4px 6px rgba(0,0,0,0.1)"
-                                    })
-                                ], style={"width": "32%", "display": "inline-block"}),
+                                    ], 
+                                    className="other-graph"
+                                ),
 
                             ], 
-                            style={
-                                "display": "flex", 
-                                "justifyContent": "space-between", 
-                                "marginTop": "20px",
-                                "flexWrap": "wrap" # Permet de passer à la ligne sur petit écran
-                            }
+                            className="graphs-container"
                         ),
 
                         html.Div(
                             [
-                                html.H3(
+                                html.H2(
                                     "📜 Historique des Finales NBA", 
-                                    style={
-                                        "marginTop": "40px", 
-                                        "color": "#1f2937"
-                                    }
+                                    className="data-table-title"
                                 ),
                                 dash_table.DataTable(
                                     id="finals-table",
@@ -131,19 +126,10 @@ def layout():
 
                         html.Div(
                             id="finale-recap-container", 
-                            style={
-                                "margin": "40px 0px", 
-                                "padding": "30px", 
-                                "backgroundColor": "#111827", 
-                                "color": "white", 
-                                "borderRadius": "15px", 
-                                "textAlign": "center"
-                            }
+                            className="finals-recap"
                         ), 
                     ],
-                    style={
-                        "width" : "80%"
-                    }
+                    className="charts-page"
                 ),
             ],
             className="flex-box"
@@ -224,7 +210,7 @@ def update_finale_recap(season):
     if df.empty: return html.H3("Données indisponibles")
     res = df.iloc[0]
     return html.Div([
-        html.H2(f"🏆 RÉCAPITULATIF FINALE {season}", style={"color": "#fbbf24"}),
+        html.H2(f"🏆 FINALE {season}", style={"color": "#fbbf24"}),
         html.P(f"{res['west_champion']} vs {res['east_champion']} | Score : {res['result']}"),
         html.H3(f"Champion : {res['champion']}")
     ])
