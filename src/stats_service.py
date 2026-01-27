@@ -29,7 +29,7 @@ def get_team_list():
     return sorted(franchises['franchise'].unique())
 
 def get_season_list():
-    seasons = sorted(games['year'].unique(), reverse=True)
+    seasons = sorted([s for s in games['year'].unique() if s <= 2018], reverse=True)
     return ["ALL-TIME"] + [str(s) for s in seasons]
 
 def get_points_per_game(team, season):
