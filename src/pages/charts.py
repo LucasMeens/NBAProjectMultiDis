@@ -144,36 +144,43 @@ def layout():
     [Input("team-dropdown", "value"), Input("season-dropdown", "value")]
 )
 def update_pts_hist(team, season):
-    df = get_points_per_game(team, season)
+    points = get_points_per_game(team, season)
     
-    if df.empty:
+    if points.empty:
         return go.Figure().update_layout(title="Aucune donnée trouvée")
 
     title = f"Points/Match : {team} ({season})"
-    fig = px.histogram(df, x="points_per_game", nbins=20 if season == "ALL-TIME" else 10, 
+    fig = px.histogram(points, x="points_per_game", nbins=20 if season == "ALL-TIME" else 10, 
                        title=title, color_discrete_sequence=['#3b82f6'],
                        hover_data=["player", "season"])
     
     fig.update_layout(bargap=0.1, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+
     return fig
 
-@callback(Output("wins-hist", "figure"), [Input("team-dropdown", "value"), Input("season-dropdown", "value")])
+@callback(
+    Output("wins-hist", "figure"), 
+    [
+        Input("team-dropdown", "value"), 
+        Input("season-dropdown", "value")
+    ]
+)
 def update_wins_analysis(team, season):
-    df_all_games = get_home_away_stats("ALL", season)
+    all_games = get_home_away_stats("ALL", season)
     if team == "ALL":
-        counts = df_all_games['winner_name'].value_counts().nlargest(10).reset_index()
+        counts = all_games['winner_name'].value_counts().nlargest(10).reset_index()
         counts.columns = ['Equipe', 'Victoires']
         fig = px.bar(counts, x='Equipe', y='Victoires', title="Top 10 Victoires", color='Victoires', color_continuous_scale='Blues')
     else:
         nickname = str(team).split()[-1].strip()
-        df_team_wins = df_all_games[df_all_games['winner_name'].astype(str).str.contains(nickname, case=False, na=False)].copy()
+        team_wins = all_games[all_games['winner_name'].astype(str).str.contains(nickname, case=False, na=False)].copy()
 
-        if df_team_wins.empty: 
+        if team_wins.empty: 
             return go.Figure(layout={"title": f"0 victoires pour {nickname}"})
         
-        df_team_wins['Lieu'] = df_team_wins.apply(lambda r: '🏠 Domicile' if nickname.lower() in str(r['home_name']).lower() else '✈️ Extérieur', axis=1)
+        team_wins['Lieu'] = team_wins.apply(lambda r: '🏠 Domicile' if nickname.lower() in str(r['home_name']).lower() else '✈️ Extérieur', axis=1)
         
-        data = df_team_wins['Lieu'].value_counts().reset_index()
+        data = team_wins['Lieu'].value_counts().reset_index()
         data.columns = ['Lieu', 'Victoires']
         
         fig = px.bar(data, x='Lieu', y='Victoires', title=f"Victoires : {team}", color='Lieu', color_discrete_map={'🏠 Domicile': '#1d4ed8', '✈️ Extérieur': '#60a5fa'})
@@ -182,33 +189,62 @@ def update_wins_analysis(team, season):
     
     return fig
 
-@callback(Output("ratio-pie", "figure"), [Input("team-dropdown", "value"), Input("season-dropdown", "value")])
+@callback(
+    Output("ratio-pie", "figure"), 
+    [
+        Input("team-dropdown", "value"), 
+        Input("season-dropdown", "value")
+    ]
+)
 def update_ratio_logic(team, season):
     if team == "ALL":
-        df_games = get_home_away_stats("ALL", season)
-        df_games['HomeWin'] = df_games.apply(lambda r: '🏠 Domicile' if r['winner_name'] == r['home_name'] else '✈️ Extérieur', axis=1)
-        data = df_games['HomeWin'].value_counts().reset_index()
+        games = get_home_away_stats("ALL", season)
+
+        games['HomeWin'] = games.apply(lambda r: '🏠 Domicile' if r['winner_name'] == r['home_name'] else '✈️ Extérieur', axis=1)
+        data = games['HomeWin'].value_counts().reset_index()
+
         data.columns = ['Resultat', 'Nombre']
+
         fig = px.pie(data, names='Resultat', values='Nombre', title=f"Avantage Terrain {season}", color_discrete_sequence=['#1e293b', '#94a3b8'], hole=0.4)
     else:
-        df_team_matches = get_home_away_stats(team, season)
-        if df_team_matches.empty: return go.Figure(layout={"title": "Aucun match"})
+        teams_games = get_home_away_stats(team, season)
+
+        if teams_games.empty: 
+            return go.Figure(layout={"title": "Aucun match"})
+        
         nickname = str(team).split()[-1].strip()
-        wins = len(df_team_matches[df_team_matches['winner_name'].astype(str).str.contains(nickname, case=False, na=False)])
-        losses = len(df_team_matches) - wins
+
+        wins = len(teams_games[teams_games['winner_name'].astype(str).str.contains(nickname, case=False, na=False)])
+        losses = len(teams_games) - wins
+
         fig = px.pie(names=['Victoires', 'Défaites'], values=[wins, losses], title=f"Bilan : {team}", color_discrete_map={'Victoires': '#10b981', 'Défaites': '#ef4444'}, hole=0.4)
+    
     fig.update_layout(legend_orientation="h", legend_y=-0.1, title_x=0.5)
+    
     return fig
 
-@callback(Output("finals-table", "data"), Input("team-dropdown", "value"))
+@callback(
+    Output("finals-table", "data"),
+    Input("team-dropdown", "value")
+)
 def update_finals_table(team):
     return get_finals_history(team).to_dict('records')
 
-@callback(Output("finale-recap-container", "children"), Input("season-dropdown", "value"))
+@callback(
+    Output("finale-recap-container", "children"), 
+    Input("season-dropdown", "value")
+)
 def update_finale_recap(season):
-    df = get_finals_summary(season)
-    if df.empty: return html.H3("Données indisponibles")
-    res = df.iloc[0]
+    finals = get_finals_summary(season)
+
+    if finals.empty: 
+        return html.H3("Données indisponibles")
+    
+    res = finals.iloc[0]
+
+    if season == "ALL-TIME":
+        season = "2018"
+    
     return html.Div([
         html.H2(f"🏆 FINALE {season}", style={"color": "#fbbf24"}),
         html.P(f"{res['west_champion']} vs {res['east_champion']} | Score : {res['result']}"),
