@@ -1,6 +1,6 @@
 import dash
 from dash import html, dcc, callback, Input, Output, dash_table
-from src.components.components.filter import get_variables, filter
+from src.components.components.filter_charts import get_variables, filter
 from src.components.components.header import header
 from src.stats_service import *
 import plotly.express as px
@@ -15,12 +15,14 @@ def layout():
     return html.Div(
     [
         header(),
-        filter(seasons, options_teams),
+        
         
         html.Div(
             [
                 html.Div(
                     [
+                        filter(seasons, options_teams),
+
                         html.Div(
                             [       
                                 html.Div(

@@ -252,3 +252,25 @@ body {
     padding: 40px; 
     color: white;
 }
+
+.filter-container {
+    width: 80%;
+    display: inline-block; 
+    vertical-align: top; 
+    padding: 20px; 
+    background-color: var(--container-background); 
+    border-radius: 12px; 
+    margin-top: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.filter-charts-container {
+    width: 96%;
+    display: inline-block; 
+    vertical-align: top; 
+    padding: 20px; 
+    background-color: var(--container-background); 
+    border-radius: 12px; 
+    margin-top: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}

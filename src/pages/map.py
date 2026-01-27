@@ -12,6 +12,8 @@ def layout():
     [
         header(),
         filter(seasons, options_teams),
+
+        
         html.Div(
             [
                 html.Div(
