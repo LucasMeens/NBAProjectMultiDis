@@ -12,7 +12,6 @@ body {
     padding : 0;
     background-color: var(--nba-blue);
 
-    overflow-x: hidden;
 
     font-family: var(--main-font);
 }
@@ -28,6 +27,9 @@ body {
     padding: 0 30px; 
     background-color: var(--header-background);
     height: 80px; 
+    width: 100%;
+    min-width: 1200px;
+    box-sizing: border-box;
 }
 
 .header-text {
@@ -94,6 +96,8 @@ body {
 .flex-box {
     display: flex;
     justify-content: center;
+    overflow-x: auto;
+    min-width: fit-content;
 }
 
 /* ------------------------------------------------------------
@@ -114,7 +118,9 @@ body {
    ------------------------------------------------------------- */
 
 .charts-page {
-    width: 80%;
+    width: 1200px;
+    min-width: 1200px;
+    flex-shrink: 0;
 }
 
 .finals-recap {
@@ -152,12 +158,14 @@ body {
 
 .one-graphs {
     width: 32%;
+    min-width: 350px;
     display: inline-block;
     margin-right: 1%;
 }
 
 .other-graph {
     width: 32%;
+    min-width: 350px;
     display: inline-block;
 }
 

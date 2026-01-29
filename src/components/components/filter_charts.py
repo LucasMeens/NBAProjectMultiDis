@@ -16,7 +16,7 @@ def filter(seasons, options_teams):
                     html.Label("Franchise", style={"fontWeight": "bold", "color": "#1f2937"}),
                     dcc.Dropdown(id="team-dropdown", options=options_teams, value="ALL", clearable=False, style={"marginBottom": "15px"}),
                     html.Label("Saison", style={"fontWeight": "bold", "color": "#1f2937"}),
-                    dcc.Dropdown(id="season-dropdown", options=[{"label": str(s), "value": s} for s in seasons], value=seasons[0]),
+                    dcc.Dropdown(id="season-dropdown", options=[{"label": str(s), "value": s} for s in seasons], value=seasons[0], style={"marginBottom": "15px"}),
                 ],
                 className="filter-charts-container"
             )
