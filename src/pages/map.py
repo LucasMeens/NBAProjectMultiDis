@@ -3,7 +3,7 @@ from dash import html
 from src.components.components.header import *
 from src.components.components.filter import *
 
-dash.register_page(__name__)
+dash.register_page(__name__, name="Carte Géographique")
 
 _, seasons, options_teams = get_variables()
 

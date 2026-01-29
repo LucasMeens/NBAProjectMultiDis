@@ -54,13 +54,13 @@ body {
     transition: 0.3s ease, transform 0.2s;
     font-weight: 500;
     height: 100%;
-    width: 100px;
+    width: 175px;
 }
 
 .navigation-link:hover {
     background-color: #1d4ed8; 
     color: white;
-    font-size: larger;
+    font-size: 105%;
 }
 
 /* ------------------------------------------------------------

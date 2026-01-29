@@ -2,7 +2,7 @@ import dash
 from dash import html, dcc
 from src.components.components.header import header
 
-dash.register_page(__name__, path='/')
+dash.register_page(__name__, name="Page d'Accueil", path='/')
 
 def layout():
     return html.Div(

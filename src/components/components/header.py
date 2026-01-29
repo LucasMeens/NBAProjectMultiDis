@@ -6,7 +6,7 @@ def header():
         [
             html.Div(
                 [
-                    html.H1("NBA Analytics", style={"margin": 0, "fontSize": "24px"}),
+                    html.H1("NBA-NALYSE", style={"margin": 0, "fontSize": "24px"}),
                     html.P(
                         "Analyse complète des franchises NBA",
                         style={"margin": 0, "color": "#9ca3af", "fontSize": "12px"},

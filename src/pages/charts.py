@@ -7,7 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from src.components.components.team_cards import team_cards_component
 
-dash.register_page(__name__)
+dash.register_page(__name__, name="Analyse Statistique")
 
 teams, seasons, options_teams = get_variables()
 
