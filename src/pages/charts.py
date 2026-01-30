@@ -29,18 +29,10 @@ def layout():
                                     [
                                         team_cards_component()
                                     ], 
-                                    style={
-                                        "width": "68%", 
-                                        "display": "inline-block",  # I don't know what is it so i let it for now
-                                        "marginLeft": "3%"
-                                    }
+                                    style={"display": "inline-block"}
                                 ),
                             ], 
-                            style={
-                                "padding": "20px", 
-                                "display": "flex",              # I don't know what is it so i let it for now
-                                "alignItems": "stretch"
-                            }
+                            className="cards-container"
                         ),
 
                         html.Div(
@@ -54,7 +46,7 @@ def layout():
                                             [
                                                 dcc.Graph(
                                                     id="pts-hist",
-                                                    config={'displayModeBar': False} # Masque la barre d'outils pour un look plus propre
+                                                    config={'displayModeBar': False}
                                                 )
                                             ], 
                                             className="graph"
@@ -107,7 +99,7 @@ def layout():
                             [
                                 html.H2(
                                     "📜 Historique des Finales NBA", 
-                                    className="data-table-title"
+                                    className="charts-title"
                                 ),
                                 dash_table.DataTable(
                                     id="finals-table",
@@ -143,29 +135,37 @@ def layout():
 
 @callback(
     Output("pts-hist", "figure"), 
-    [Input("team-dropdown", "value"), Input("season-dropdown", "value")]
+    [
+        Input("team-dropdown", "value"), 
+        Input("season-dropdown", "value")
+    ]
 )
 def update_pts_hist(team, season):
-    raw = get_points_per_game(team, season) #Les données brutes qui proviennent de stats_service.py
-    if raw is None or raw.empty:
+    points = get_points_per_game(team, season)
+    if points is None or points.empty:
         return go.Figure().update_layout(title=f"Aucun match trouvé pour {team}")
     
-    df = pd.DataFrame(raw.to_dict())
+    data = pd.DataFrame(points.to_dict())
 
     if str(season) == "ALL-TIME":
-        df['Decade'] = (df['year'] // 10 * 10).astype(str) + "s"
+        data['Decade'] = (data['year'] // 10 * 10).astype(str) + "s"
+
         fig = px.histogram(
-            df, x="score_obtenu", color="Decade", marginal="box",
+            data, x="score_obtenu", color="Decade", marginal="box",
+
             title=f"Puissance offensive : {team} (Par Décennie)",
             labels={'score_obtenu': 'Points marqués', 'Decade': 'Époque'},
+
             barmode='overlay', opacity=0.6,
             template="plotly_white"
         )
     else:
         fig = px.histogram(
-            df, x="score_obtenu", nbins=15,
+            data, x="score_obtenu", nbins=15,
+
             title=f"Puissance Offensive : {team} ({season})",
             labels={'score_obtenu': 'Points marqués'},
+
             color_discrete_sequence=['#3b82f6'],
             template="plotly_white" 
         )
@@ -173,6 +173,7 @@ def update_pts_hist(team, season):
     fig.add_vline(x=100, line_dash="dash", line_color="grey")
     fig.add_vline(x=120, line_dash="dash", line_color="grey")
     fig.update_layout(bargap=0.1, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', title_x=0.5)
+
     return fig
 
 
@@ -184,17 +185,18 @@ def update_pts_hist(team, season):
     ]
 )
 def update_wins_analysis(team, season):
-    raw = get_home_away_stats(team, season)
+    home_away = get_home_away_stats(team, season)
     
-    if raw is None or (isinstance(raw, pd.DataFrame) and raw.empty):
+    if home_away is None or (isinstance(home_away, pd.DataFrame) and home_away.empty):
         return go.Figure().update_layout(title="Aucune donnée disponible")
 
-    plot = pd.DataFrame(raw)
-    lab_home, lab_away = "🏠 Domicile", "✈️ Extérieur"
+    plot = pd.DataFrame(home_away)
+
+    label_home, label_away = "🏠 Domicile", "✈️ Extérieur"
     
     if team == "ALL":
         plot['Lieu'] = plot.apply(
-            lambda r: lab_home if r['home_score'] > r['away_score'] else lab_away, axis=1
+            lambda r: label_home if r['home_score'] > r['away_score'] else label_away, axis=1
         )
     else:
         team_selected = str(team).strip().lower()
@@ -202,17 +204,18 @@ def update_wins_analysis(team, season):
         def get_loc(row):
             winner = str(row.get('winner_name', '')).strip().lower()
             home = str(row.get('home_name', '')).strip().lower()
+
             if winner in team_selected or team_selected.split()[-1] == winner:
-                return lab_home if (home in team_selected or team_selected.split()[-1] == home) else lab_away
+                return label_home if (home in team_selected or team_selected.split()[-1] == home) else label_away
             return None
 
-        plot['Lieu'] = plot.apply(get_loc, axis=1) #plot fait ici référence à Plotly c'est le DataFrame spécifiquement préparé pour
+        plot['Lieu'] = plot.apply(get_loc, axis=1) 
         plot = plot[plot['Lieu'].notna()]
 
     if plot.empty:
         return go.Figure().update_layout(title=f"Pas de victoires pour {team}")
 
-    wins_split = plot.groupby(['year', 'Lieu']).size().reset_index(name='Total') #Divise le total de victoires en deux catégories visuelles (Domicile vs Extérieur) pour chaque année
+    wins_split = plot.groupby(['year', 'Lieu']).size().reset_index(name='Total') 
 
     fig = px.bar(
         wins_split, 
@@ -221,10 +224,10 @@ def update_wins_analysis(team, season):
         color='Lieu',
         title=f"Victoires : {team}", 
         barmode='group',
-        color_discrete_map={lab_home: "#065f46", lab_away: "#ef4444"},
-        template="plotly_white" # Utilise un template standard explicite
+        color_discrete_map={label_home: "#065f46", label_away: "#ef4444"},
+        template="plotly_white"
     )
-    fig.update_traces(marker_pattern_shape="") # Patch 3.13 (car on avait eu un bug lors du lancement à ce niveau là)
+    fig.update_traces(marker_pattern_shape="") 
     return fig
 
 @callback(
@@ -235,37 +238,47 @@ def update_wins_analysis(team, season):
     ]
 )
 def update_ratio_logic(team, season):
-    raw_df = get_home_away_stats(team, season)
-    if raw_df is None or raw_df.empty: 
+    home_away = get_home_away_stats(team, season)
+
+    if home_away is None or home_away.empty: 
         return go.Figure(layout={"title": "Aucun match"})
 
-    df = pd.DataFrame(raw_df.to_dict())
+    data = pd.DataFrame(home_away.to_dict())
 
     if team == "ALL":
-        
-        df['diff'] = abs(df['home_score'] - df['away_score'])
-        def cat_game(d): #Permet de créer une classification ds matchs à partir de l'écart de points
+        data['diff'] = abs(data['home_score'] - data['away_score'])
+
+        def cat_game(d): 
             if d <= 5: return "🔥 Match Serrés (<=5 pts)"
             if d >= 15: return "🧊 Démonstration (>=15 pts)"
+
             return "🏀 Match Standards"
-        df['Type'] = df['diff'].apply(cat_game)
-        data = df['Type'].value_counts().reset_index()
+        
+        data['Type'] = data['diff'].apply(cat_game)
+        data = data['Type'].value_counts().reset_index()
+
         fig = px.pie(data, names='Type', values='count', hole=0.4,
                      title=f"Intensité des matchs NBA ({season})",
                      color_discrete_map={"🔥 Match Serrés (<=5 pts)": "#ef4444", "🏀 Match Standards": "#3b82f6", "🧊 Démonstration de force (>=15 pts)": "#94a3b8"})
+    
     else:
-
         keywords_map = {"Oklahoma City": ["Thunder", "Sonics", "Seattle"], "New Orleans Pelicans": ["Pelicans", "Hornets", "New Orleans"], "Los Angeles Clippers": ["Clippers", "San Diego", "Buffalo"], "Brooklyn Nets": ["Nets", "New Jersey"]}
+        
         words = keywords_map.get(team, [str(team).split()[-1].strip()])
+        
         def check_win(r):
             is_home = any(w.lower() in str(r['home_name']).lower() for w in words)
+        
             return (is_home and r['home_score'] > r['away_score']) or (not is_home and r['away_score'] > r['home_score'])
-        df['won'] = df.apply(check_win, axis=1)
-        v, d = df['won'].sum(), len(df) - df['won'].sum()
+        
+        data['won'] = data.apply(check_win, axis=1)
+        v, d = data['won'].sum(), len(data) - data['won'].sum()
+        
         fig = px.pie(names=['Victoires', 'Défaites'], values=[v, d], hole=0.4,
                      title=f"Bilan : {team}", color_discrete_map={'Victoires': '#10b981', 'Défaites': '#ef4444'})
 
     fig.update_layout(legend_orientation="h", legend_y=-0.1, title_x=0.5, paper_bgcolor='rgba(0,0,0,0)')
+    
     return fig
 
 @callback(

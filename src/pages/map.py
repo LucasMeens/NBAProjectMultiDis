@@ -5,13 +5,13 @@ from src.components.components.map_filter import *
 
 dash.register_page(__name__, name="Carte Géographique")
 
-_, seasons, options_teams = get_variables()
+_, options_teams = get_variables()
 
 def layout():
     return html.Div(
     [
         header(),
-        filter(seasons, options_teams),
+        filter(options_teams),
 
         
         html.Div(

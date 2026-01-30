@@ -133,12 +133,12 @@ body {
     font-family: var(--main-font);
 }
 
-.data-table-title {
+.charts-title {
     margin-top : 50px;
     margin-bottom : 25px; 
     color : white;
     font-family : var(--main-font);
-    text-align : center;
+    text-align : left;
 }
 
 .graphs-container {
@@ -167,6 +167,45 @@ body {
     width: 32%;
     min-width: 350px;
     display: inline-block;
+}
+
+.info-bubbles {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    height: 105px;
+}
+
+.team-logo {
+    height: 80px;
+    width: auto; 
+    object-fit: contain;
+}
+
+.team-logo-container {
+    padding: 10px 20px;
+    background-color: var(--container-background); 
+    border-radius: 12px; 
+    border: 1px solid var(--container-background);
+    display: flex; 
+    align-items: center;
+    justify-content: center; 
+    min-width: 140px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.team-logo-card {
+    padding: 15px 20px;
+    border: 1px solid var(--container-background);
+    border-radius: 8px;
+    min-width: 180px;
+    background-color: var(--container-background);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.cards-container {
+    display: flex;
+    align-items: stretch;
 }
 
 /* ------------------------------------------------------------

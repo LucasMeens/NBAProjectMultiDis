@@ -3,12 +3,11 @@ from src.stats_service import get_team_list, get_season_list
 
 def get_variables():
     teams = get_team_list()
-    seasons = get_season_list()
     options_teams = [{"label": "🏀 Toutes les franchises", "value": "ALL"}] + [{"label": t, "value": t} for t in teams]
 
-    return (teams, seasons, options_teams)
+    return (teams, options_teams)
     
-def filter(seasons, options_teams):
+def filter(options_teams):
     return html.Div(
         [
             html.Div(
