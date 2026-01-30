@@ -32,44 +32,80 @@ def get_season_list():
     seasons = sorted([s for s in games['year'].unique() if s <= 2018], reverse=True)
     return ["ALL-TIME"] + [str(s) for s in seasons]
 
+
 def get_points_per_game(team, season):
-    players['season'] = pd.to_numeric(players['season'], errors='coerce')
+    df_games = get_home_away_stats(team, season)
     
-    if str(season) == "ALL-TIME":
-        df_season = players.copy()
-    else:
-        df_season = players[players['season'] == int(season)].copy()
+    if df_games is None or df_games.empty:
+        return pd.DataFrame(columns=['score_obtenu'])
 
-    if team == "ALL":
-        return df_season[df_season['team_id'] != 'TOT']
+    def extract_score(row):
+        keywords_map = {
+            "Oklahoma City": ["Thunder", "SuperSonics", "Seattle"],
+            "New Orleans Pelicans": ["Pelicans", "Hornets", "New Orleans"],
+            "Los Angeles Clippers": ["Clippers", "San Diego"]
+        }
 
-    historical_codes = {
-        "Oklahoma City Thunder": ["OKC", "SEA"],
-        "Oklahoma City": ["OKC", "SEA"],
-        "New Orleans Pelicans": ["NOP", "NOH", "NOK"], # NOK = New Orleans/OKC Hornets
-        "Los Angeles Clippers": ["LAC", "SDC", "BUF"],
-        "Brooklyn Nets": ["BRK", "NJN"],
-        "Charlotte Hornets": ["CHO", "CHA", "CHH"]
-    }
+        team_keywords = keywords_map.get(team, [str(team).split()[-1]])
+        home_name_lower = str(row['home_name']).lower()
+        
+        is_home = False
+        for k in team_keywords:
+            if str(k).lower() in home_name_lower:
+                is_home = True
+                break
+        
+        return row['home_score'] if is_home else row['away_score']
+
+   
+    df_result = pd.DataFrame(df_games.to_dict()) 
     
-    target_codes = historical_codes.get(team, [team[:3].upper()])
+    df_result['score_obtenu'] = df_result.apply(extract_score, axis=1)
+    return df_result
 
-    return df_season[df_season['team_id'].isin(target_codes)].copy()
+# Fonction points_per_game for players (option finalement non envisagé) --------------------------------------------------
+
+#    players['season'] = pd.to_numeric(players['season'], errors='coerce')
+    
+#    if str(season) == "ALL-TIME":
+#        df_season = players.copy()
+#    else:
+#       df_season = players[players['season'] == int(season)].copy()
+
+#    if team == "ALL":
+#        return df_season[df_season['team_id'] != 'TOT']
+
+#    historical_codes = {
+#        "Oklahoma City Thunder": ["OKC", "SEA"],
+#        "Oklahoma City": ["OKC", "SEA"],
+#        "New Orleans Pelicans": ["NOP", "NOH", "NOK"], # NOK = New Orleans/OKC Hornets
+#        "Los Angeles Clippers": ["LAC", "SDC", "BUF"],
+#        "Brooklyn Nets": ["BRK", "NJN"],
+#        "Charlotte Hornets": ["CHO", "CHA", "CHH"]
+#    }
+    
+#    target_codes = historical_codes.get(team, [team[:3].upper()])
+
+#    return df_season[df_season['team_id'].isin(target_codes)].copy()
+
+## --------------------------------------------------------------------------------
 
 def get_home_away_stats(team, season):
     games['year'] = pd.to_numeric(games['year'], errors='coerce')
     
     if str(season) == "ALL-TIME":
-        df_season = games.copy()
+        df_season = games
     else:
         df_season = games[games['year'] == int(season)].copy()
     
     if team != "ALL":
         keywords = {
-            "Oklahoma City": ["Thunder", "Sonics", "Seattle"],
+            "Oklahoma City": ["Thunder", "SuperSonics", "Seattle"],
+            "Oklahoma City Thunder": ["Thunder", "SuperSonics", "Seattle"],
             "New Orleans Pelicans": ["Pelicans", "Hornets", "New Orleans"],
-            "Los Angeles Clippers": ["Clippers", "San Diego"],
-            "Brooklyn Nets": ["Nets", "New Jersey"]
+            "Los Angeles Clippers": ["Clippers", "San Diego", "Buffalo"],
+            "Charlotte Hornets": ["Hornets", "Bobcats", "Charlotte"],
+            "Brooklyn Nets": ["Nets", "New Jersey", "New York Nets"]
         }
         
         words = keywords.get(team, [str(team).split()[-1].strip()])
@@ -79,7 +115,7 @@ def get_home_away_stats(team, season):
         mask = (df_season['home_name'].str.contains(pattern, case=False, na=False)) | \
                (df_season['away_name'].str.contains(pattern, case=False, na=False))
         
-        return df_season[mask].copy()
+        return df_season[mask].copy().reset_index(drop=True)
     
     return df_season
 

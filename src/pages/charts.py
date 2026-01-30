@@ -146,19 +146,35 @@ def layout():
     [Input("team-dropdown", "value"), Input("season-dropdown", "value")]
 )
 def update_pts_hist(team, season):
-    points = get_points_per_game(team, season)
+    raw = get_points_per_game(team, season) #Les données brutes qui proviennent de stats_service.py
+    if raw is None or raw.empty:
+        return go.Figure().update_layout(title=f"Aucun match trouvé pour {team}")
     
-    if points.empty:
-        return go.Figure().update_layout(title="Aucune donnée trouvée")
+    df = pd.DataFrame(raw.to_dict())
 
-    title = f"Points/Match : {team} ({season})"
-    fig = px.histogram(points, x="points_per_game", nbins=20 if season == "ALL-TIME" else 10, 
-                       title=title, color_discrete_sequence=['#3b82f6'],
-                       hover_data=["player", "season"])
-    
-    fig.update_layout(bargap=0.1, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    if str(season) == "ALL-TIME":
+        df['Decade'] = (df['year'] // 10 * 10).astype(str) + "s"
+        fig = px.histogram(
+            df, x="score_obtenu", color="Decade", marginal="box",
+            title=f"Puissance offensive : {team} (Par Décennie)",
+            labels={'score_obtenu': 'Points marqués', 'Decade': 'Époque'},
+            barmode='overlay', opacity=0.6,
+            template="plotly_white"
+        )
+    else:
+        fig = px.histogram(
+            df, x="score_obtenu", nbins=15,
+            title=f"Puissance Offensive : {team} ({season})",
+            labels={'score_obtenu': 'Points marqués'},
+            color_discrete_sequence=['#3b82f6'],
+            template="plotly_white" 
+        )
 
+    fig.add_vline(x=100, line_dash="dash", line_color="grey")
+    fig.add_vline(x=120, line_dash="dash", line_color="grey")
+    fig.update_layout(bargap=0.1, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', title_x=0.5)
     return fig
+
 
 @callback(
     Output("wins-hist", "figure"), 
@@ -168,27 +184,47 @@ def update_pts_hist(team, season):
     ]
 )
 def update_wins_analysis(team, season):
-    all_games = get_home_away_stats("ALL", season)
-    if team == "ALL":
-        counts = all_games['winner_name'].value_counts().nlargest(10).reset_index()
-        counts.columns = ['Equipe', 'Victoires']
-        fig = px.bar(counts, x='Equipe', y='Victoires', title="Top 10 Victoires", color='Victoires', color_continuous_scale='Blues')
-    else:
-        nickname = str(team).split()[-1].strip()
-        team_wins = all_games[all_games['winner_name'].astype(str).str.contains(nickname, case=False, na=False)].copy()
+    raw = get_home_away_stats(team, season)
+    
+    if raw is None or (isinstance(raw, pd.DataFrame) and raw.empty):
+        return go.Figure().update_layout(title="Aucune donnée disponible")
 
-        if team_wins.empty: 
-            return go.Figure(layout={"title": f"0 victoires pour {nickname}"})
-        
-        team_wins['Lieu'] = team_wins.apply(lambda r: '🏠 Domicile' if nickname.lower() in str(r['home_name']).lower() else '✈️ Extérieur', axis=1)
-        
-        data = team_wins['Lieu'].value_counts().reset_index()
-        data.columns = ['Lieu', 'Victoires']
-        
-        fig = px.bar(data, x='Lieu', y='Victoires', title=f"Victoires : {team}", color='Lieu', color_discrete_map={'🏠 Domicile': '#1d4ed8', '✈️ Extérieur': '#60a5fa'})
+    plot = pd.DataFrame(raw)
+    lab_home, lab_away = "🏠 Domicile", "✈️ Extérieur"
     
-    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', title_x=0.5)
-    
+    if team == "ALL":
+        plot['Lieu'] = plot.apply(
+            lambda r: lab_home if r['home_score'] > r['away_score'] else lab_away, axis=1
+        )
+    else:
+        team_selected = str(team).strip().lower()
+        
+        def get_loc(row):
+            winner = str(row.get('winner_name', '')).strip().lower()
+            home = str(row.get('home_name', '')).strip().lower()
+            if winner in team_selected or team_selected.split()[-1] == winner:
+                return lab_home if (home in team_selected or team_selected.split()[-1] == home) else lab_away
+            return None
+
+        plot['Lieu'] = plot.apply(get_loc, axis=1) #plot fait ici référence à Plotly c'est le DataFrame spécifiquement préparé pour
+        plot = plot[plot['Lieu'].notna()]
+
+    if plot.empty:
+        return go.Figure().update_layout(title=f"Pas de victoires pour {team}")
+
+    wins_split = plot.groupby(['year', 'Lieu']).size().reset_index(name='Total') #Divise le total de victoires en deux catégories visuelles (Domicile vs Extérieur) pour chaque année
+
+    fig = px.bar(
+        wins_split, 
+        x='year', 
+        y='Total', 
+        color='Lieu',
+        title=f"Victoires : {team}", 
+        barmode='group',
+        color_discrete_map={lab_home: "#065f46", lab_away: "#ef4444"},
+        template="plotly_white" # Utilise un template standard explicite
+    )
+    fig.update_traces(marker_pattern_shape="") # Patch 3.13 (car on avait eu un bug lors du lancement à ce niveau là)
     return fig
 
 @callback(
@@ -199,30 +235,37 @@ def update_wins_analysis(team, season):
     ]
 )
 def update_ratio_logic(team, season):
+    raw_df = get_home_away_stats(team, season)
+    if raw_df is None or raw_df.empty: 
+        return go.Figure(layout={"title": "Aucun match"})
+
+    df = pd.DataFrame(raw_df.to_dict())
+
     if team == "ALL":
-        games = get_home_away_stats("ALL", season)
-
-        games['HomeWin'] = games.apply(lambda r: '🏠 Domicile' if r['winner_name'] == r['home_name'] else '✈️ Extérieur', axis=1)
-        data = games['HomeWin'].value_counts().reset_index()
-
-        data.columns = ['Resultat', 'Nombre']
-
-        fig = px.pie(data, names='Resultat', values='Nombre', title=f"Avantage Terrain {season}", color_discrete_sequence=['#1e293b', '#94a3b8'], hole=0.4)
-    else:
-        teams_games = get_home_away_stats(team, season)
-
-        if teams_games.empty: 
-            return go.Figure(layout={"title": "Aucun match"})
         
-        nickname = str(team).split()[-1].strip()
+        df['diff'] = abs(df['home_score'] - df['away_score'])
+        def cat_game(d): #Permet de créer une classification ds matchs à partir de l'écart de points
+            if d <= 5: return "🔥 Match Serrés (<=5 pts)"
+            if d >= 15: return "🧊 Démonstration (>=15 pts)"
+            return "🏀 Match Standards"
+        df['Type'] = df['diff'].apply(cat_game)
+        data = df['Type'].value_counts().reset_index()
+        fig = px.pie(data, names='Type', values='count', hole=0.4,
+                     title=f"Intensité des matchs NBA ({season})",
+                     color_discrete_map={"🔥 Match Serrés (<=5 pts)": "#ef4444", "🏀 Match Standards": "#3b82f6", "🧊 Démonstration de force (>=15 pts)": "#94a3b8"})
+    else:
 
-        wins = len(teams_games[teams_games['winner_name'].astype(str).str.contains(nickname, case=False, na=False)])
-        losses = len(teams_games) - wins
+        keywords_map = {"Oklahoma City": ["Thunder", "Sonics", "Seattle"], "New Orleans Pelicans": ["Pelicans", "Hornets", "New Orleans"], "Los Angeles Clippers": ["Clippers", "San Diego", "Buffalo"], "Brooklyn Nets": ["Nets", "New Jersey"]}
+        words = keywords_map.get(team, [str(team).split()[-1].strip()])
+        def check_win(r):
+            is_home = any(w.lower() in str(r['home_name']).lower() for w in words)
+            return (is_home and r['home_score'] > r['away_score']) or (not is_home and r['away_score'] > r['home_score'])
+        df['won'] = df.apply(check_win, axis=1)
+        v, d = df['won'].sum(), len(df) - df['won'].sum()
+        fig = px.pie(names=['Victoires', 'Défaites'], values=[v, d], hole=0.4,
+                     title=f"Bilan : {team}", color_discrete_map={'Victoires': '#10b981', 'Défaites': '#ef4444'})
 
-        fig = px.pie(names=['Victoires', 'Défaites'], values=[wins, losses], title=f"Bilan : {team}", color_discrete_map={'Victoires': '#10b981', 'Défaites': '#ef4444'}, hole=0.4)
-    
-    fig.update_layout(legend_orientation="h", legend_y=-0.1, title_x=0.5)
-    
+    fig.update_layout(legend_orientation="h", legend_y=-0.1, title_x=0.5, paper_bgcolor='rgba(0,0,0,0)')
     return fig
 
 @callback(
