@@ -238,6 +238,39 @@ Pour le résumer en 2 mots, on pourrait dire Stratégie et Spectacles.
 ## V - Copyright
 
 - Nous déclarons sur l’honneur que le code fourni a été produit par nous-mêmes, à l’exception des lignes ci dessous :
+    # Dans charts.py (Nous avions rencontré des bugs et pour le corrigé nous avons eu recours à l'IA)
+    
+    data['won'] = data.apply(check_win, axis=1)
+        v, d = data['won'].sum(), len(data) - data['won'].sum()
+        
+    # Dans nba_map.py (en s'appuyant sur les informations trouvés sur le site plotly : https://plotly.com/python-api-reference/generated/plotly.graph_objects.Scattermapbox.html )
+
+    fig.add_trace(go.Scattermapbox(
+            lat=franchises_copy['lat'], 
+            lon=franchises_copy['lng'],
+
+            mode='markers+text',
+            marker=dict(
+                size=14, 
+                color='#ef4444', 
+                opacity=0.9
+            ),
+    
+    # Dans stats_service.py (pour récupérer les mots on a également eu recours à l'IA sur cette partie là et cela nous a permis de comprendre comment procéder avec le reste )
+    
+    words = keywords.get(team, [str(team).split()[-1].strip()])
+        
+        pattern = "|".join(words)
+        
+        mask = (df_season['home_name'].str.contains(pattern, case=False, na=False)) | \
+               (df_season['away_name'].str.contains(pattern, case=False, na=False))
+        
+        return df_season[mask].copy().reset_index(drop=True)
+    
+    # Dans map_view.py (En majorité on s'est basé sur les outils de compréhension présent sur le site suivant : https://wiki.openstreetmap.org/wiki/Mercator) 
+
+    map = figure(x_axis_type="mercator", y_axis_type="mercator", width=1000, height=700, title="NBA Franchises in the United States", tools="pan,wheel_zoom,box_zoom,reset")
+
     - Téléchargement Kaggle : 
         ```python
         import kagglehub
