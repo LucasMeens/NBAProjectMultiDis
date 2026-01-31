@@ -237,7 +237,7 @@ Pour le résumer en 2 mots, on pourrait dire Stratégie et Spectacles.
 
 ## V - Copyright
 
-- Nous déclarons sur l’honneur que le code fourni a été produit par nous même, à l’exception des lignes ci dessous :
+- Nous déclarons sur l’honneur que le code fourni a été produit par nous-mêmes, à l’exception des lignes ci dessous :
     - Téléchargement Kaggle : 
         ```python
         import kagglehub
@@ -250,13 +250,13 @@ Pour le résumer en 2 mots, on pourrait dire Stratégie et Spectacles.
         Ceci est le code fourni directement sur kaggle lorsque l'on souhaite télécharger un dataset.
     
     - Fonctionnement de l'application :
-    
-        Une partie du fonctionnement de l'application à été faite grâce a la documentation en ligne de Dash.
+
+        Une partie du fonctionnement de l'application a été faite grâce à la documentation en ligne de Dash.
         Par exemple pour le fonctionnement des Multi-pages : https://dash.plotly.com/urls
 
 - Pour chaque ligne (ou groupe de lignes) empruntée, donner la référence de la source et une explication de la syntaxe utilisée.
 
-- Toute ligne non déclarée ci dessus est réputée être produite par l’auteur (ou les auteurs) du projet. L’absence ou l’omission de déclaration sera considéré comme du plagiat.
+- Toute ligne non déclarée ci dessus est réputée être produite par l’auteur (ou les auteurs) du projet. L’absence ou l’omission de déclaration sera considérée comme du plagiat.
 
  
 
