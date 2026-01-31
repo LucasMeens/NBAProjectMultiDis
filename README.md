@@ -1,7 +1,7 @@
 # Projet Multi-Disciplinaire : Analyse des franchises NBA 
 ### E3FI - 2I - Semestre 1
 
-## 1. USER GUIDE
+## I - USER GUIDE
 
 Cette section explique comment installer et lancer le projet sur n'importe quelle machine.
 
@@ -11,13 +11,13 @@ Cette section explique comment installer et lancer le projet sur n'importe quell
 
 ### Installation
 
-1.  **Cloner le dépôt et aller dans le dossier du projet :**
+- **I - Cloner le dépôt et aller dans le dossier du projet :**
     ```bash
     git clone https://github.com/LucasMeens/NBAProjectMultiDis.git
     cd NBAProjectMultiDis
     ```
 
-2.  **Installer les dépendances requises :**
+- **II - Installer les dépendances requises :**
 
     Si vous souhaitez utiliser un environnement virtuel : 
     ```bash
@@ -37,7 +37,7 @@ python main.py
 ```
 
 
-## 2. DATA
+## II - DATA
 
 Cette section sert a renseigner sur les données utilisées.
 
@@ -57,13 +57,13 @@ Cette section sert a renseigner sur les données utilisées.
     - Nos données couvre de 1950 à 2018 fautes de données plus récentes de bonnes qualités.
 
 
-## 3. Developer Guide
+## III - Developer Guide
 
 Cette section renseigne sur l'architecture de l'application et ensuite démontre comment ajouter rapidement une nouvelle page à l'application
 
 ### Architecture globale : 
 
-- **1. Cas du téléchargement et nettoyage au démarrage :**
+- **I - Cas du téléchargement et nettoyage au démarrage :**
 
     - Le sens de la lecture se fait du haut vers le bas et de la gauche vers la droite (comme un roman)
         ```mermaid
@@ -97,7 +97,7 @@ Cette section renseigne sur l'architecture de l'application et ensuite démontre
             H -.->|"Charge (Lazy Loading)"| F
         ```
 
-- **2. Cas du lancement de la page des graphiques depuis la page d'accueil :**
+- **II - Cas du lancement de la page des graphiques depuis la page d'accueil :**
 
     - Le sens de la lecture est le même
         ```mermaid
@@ -128,14 +128,14 @@ Cette section renseigne sur l'architecture de l'application et ensuite démontre
 
 ### Ajout d'une nouvelle page :
 
-- **1. Création de la page :**
+- **I - Création de la page :**
 
     - Créer le fichier de la page dans src/pages/ : 
         ```
         exemple.py
         ```
 
-- **2. Ajout de la page au registre des pages :**
+- **II - Ajout de la page au registre des pages :**
 
     - Dans exemple.py : 
         ```python
@@ -144,11 +144,11 @@ Cette section renseigne sur l'architecture de l'application et ensuite démontre
 
         dash.register_page(__name__, name="Nom de page")
 
-            def layout():
-                return html.Div([])
+        def layout():
+            return html.Div([])
         ```
 
-- **3. Bonus :**
+- **III - Bonus :**
 
     - Ajout de la barre de navigation :
         ```python
@@ -158,12 +158,12 @@ Cette section renseigne sur l'architecture de l'application et ensuite démontre
 
         dash.register_page(__name__, name="Nom de page")
 
-            def layout():
-                return html.Div(
-                    [
-                        header() # AJOUTER
-                    ]
-                )
+        def layout():
+            return html.Div(
+                [
+                    header() # AJOUTER
+                ]
+            )
         ```
 
     - Ajout du filtre pour les saisons et les franchises :
@@ -175,16 +175,64 @@ Cette section renseigne sur l'architecture de l'application et ensuite démontre
 
         dash.register_page(__name__, name="Nom de page")
 
-            def layout():
-                return html.Div(
-                    [
-                        header(),
-                        filter() # AJOUTER
-                    ]
-                )
+        def layout():
+            return html.Div(
+                [
+                    header(),
+                    filter() # AJOUTER
+                ]
+            )
         ```
 
+## IV - Rapport d'analyse
 
+Dans cette section nous allons voir ce que les données nous disent.
+
+Après avoir analysé nos différentes données, graphiques et notre carte, nous avons pu dégager deux grandes tendances qui expliquent le visage actuel de la NBA.
+
+### La démographie
+
+La carte de répartition des équipes met en lumière une réalité économique simple : la NBA s’installe là où se trouve la foule.
+
+- **I - Remarques :**
+
+    - On remarque très vite que les franchises sont concentrées dans les zones à forte densité de population. Cela parait assez évident. Pour qu’une équipe survive, elle a besoin de fans, de partenaires et d'infrastructures suffisament grandes que seules les grandes villes à forte densité de populations possèdent.
+
+- **II - Supposition :**
+    
+    - Il ne faut pas oublier que le système des franchises est là pour permettre de remporter de l'argent, on peut donc supposé que la ligue ou les propriétaire des franchises mettent une pression pour que les franchises soient dans les villes avec le plus de fans, infrastructure et partenaires potentiels pour rapporter le maximum via les partenariats ou les ventes (billets, maillots et merch en tout genre).
+
+    - Nous pouvons également supposé qu'une ville avec peu d'habitants ne peut pas supporter le poids financier d'une franchise. Pour résumer, sans une forte densité de population, les villes n'ont pas les fonds ou les arguments pour permettre l'accueil d'une franchise NBA.
+
+- **III - Conclusions :** 
+
+    - Il est assez simple de se rendre compte qu'il n'y a pas qu'une seule cause a cette disparité des franchises dans leur localisation. Même si les potentielles pression de la ligue ou bien le souhait d'avoir du soutien (financier ou encore des supporters) Toutes ces raisons mènent au fait qu'aujourd'hui on observe clairement que les franchises ne s'installent pas n'importe où.
+
+### Le spectacle offensif
+
+Nos graphiques sur l'évolution du scoring montrent une tendance très marquée du basket au fil des années.
+
+- **I - Remarques :**
+    
+    - On voit qu'entre les années 1950 jusqu'au années 2010, Les données montrent que le nombre de points marqués par match n’a, en moyenne, jamais cessé de grimper. 
+
+- **II - Suppositions :**
+
+    - Il y a clairement eu des changement au cours des années, c'est inévitable avec les changements d'époques. Il y a forcémenet eu des évolutions des règles et des styles de jeu (pour citer un changement majeur : l'importance du tir à trois points). Les joueurs également influencent le jeu, des phénomènes comme : Shaquille O'Neal, qui a obligé la ligue a revoir la conception de leur panier car il les brisaient, ou encore Stephen Curry qui est a l'origine de la monté de l'importance des tirs à trois points ont fortément influencé la manière dont le sport est joué aujourd'hui.
+    
+    - On peut assez facilement deviné que le jeu est devenu plus rapide et plus tourné vers l'attaque, rendant les matchs beaucoup plus rentables qu'auparavant car le spectacle n'en devient que meilleur. Cela est encore une fois influencé par la ligue mais aussi et surtout pas les spectateurs.
+
+- **III - Conclusions :**
+
+    - Le constat est simple, plus les matchs sont spectaculaire, plus les spectateurs aiment. Les très bon joueurs passent d'athlète a super-star, ils redéfinissent le jeu tandis que les spectateurs deviennent des fans et les franchises se remplissent toujours plus les poches.
+
+    - Il paraît donc normal que les règles d'une ligue basé sur le profit avec des joueurs de plus en plus spéctaculaire qui veulent absolument vaincre évolue dans ce sens.
+
+
+### Conclusion globale
+
+En regroupant ces deux analyse, on comprend mieux la stratégie de la ligue NBA aujourd'hui : sélectionner les marchés les plus denses pour assurer la stabilité économique, tout en favorisant un jeu de plus en plus offensif pour captiver le public. 
+Pour le résumer en 2 mots, on pourrait dire Stratégie et Spectacles. 
     
 
 
