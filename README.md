@@ -39,7 +39,7 @@ python main.py
 
 ## II - DATA
 
-Cette section sert a renseigner sur les données utilisées.
+Cette section sert à renseigner sur les données utilisées.
 
 - **Format :** 
     - Nos fichiers sont tous au format CSV pour les données et jpg ou png pour les images.
@@ -54,7 +54,7 @@ Cette section sert a renseigner sur les données utilisées.
     - Le traitement des fichiers au format CSV se fait dans clean_data.py pour construire des fichiers conservant uniquement les données utiles pour ce projet. (Voir clean_data.py pour plus de détails).
 
 - **Période :**
-    - Nos données couvre de 1950 à 2018 fautes de données plus récentes de bonnes qualités.
+    - Nos données couvrent de 1950 à 2018. faute de données plus récentes et de bonnes qualités.
 
 
 ## III - Developer Guide
@@ -196,13 +196,13 @@ La carte de répartition des équipes met en lumière une réalité économique 
 
 - **I - Remarques :**
 
-    - On remarque très vite que les franchises sont concentrées dans les zones à forte densité de population. Cela parait assez évident. Pour qu’une équipe survive, elle a besoin de fans, de partenaires et d'infrastructures suffisament grandes que seules les grandes villes à forte densité de populations possèdent.
+    - On remarque très vite que les franchises sont concentrées dans les zones à forte densité de population. Cela parait assez évident. Pour qu’une équipe survive, elle a besoin de fans, de partenaires et d'infrastructures suffisamment grandes que seules les grandes villes à forte densité de populations possèdent.
 
 - **II - Supposition :**
     
-    - Il ne faut pas oublier que le système des franchises est là pour permettre de remporter de l'argent, on peut donc supposé que la ligue ou les propriétaire des franchises mettent une pression pour que les franchises soient dans les villes avec le plus de fans, infrastructure et partenaires potentiels pour rapporter le maximum via les partenariats ou les ventes (billets, maillots et merch en tout genre).
+    - Il ne faut pas oublier que le système des franchises est là pour permettre de remporter de l'argent, on peut donc supposer que la ligue ou les propriétaire des franchises mettent une pression pour que les franchises soient dans les villes avec le plus de fans, infrastructure et partenaires potentiels pour rapporter le maximum via les partenariats ou les ventes (billets, maillots et merch en tout genre).
 
-    - Nous pouvons également supposé qu'une ville avec peu d'habitants ne peut pas supporter le poids financier d'une franchise. Pour résumer, sans une forte densité de population, les villes n'ont pas les fonds ou les arguments pour permettre l'accueil d'une franchise NBA.
+    - Nous pouvons également supposer qu'une ville avec peu d'habitants ne peut pas supporter le poids financier d'une franchise. Pour résumer, sans une forte densité de population, les villes n'ont pas les fonds ou les arguments pour permettre l'accueil d'une franchise NBA.
 
 - **III - Conclusions :** 
 
@@ -218,13 +218,13 @@ Nos graphiques sur l'évolution du scoring montrent une tendance très marquée 
 
 - **II - Suppositions :**
 
-    - Il y a clairement eu des changement au cours des années, c'est inévitable avec les changements d'époques. Il y a forcémenet eu des évolutions des règles et des styles de jeu (pour citer un changement majeur : l'importance du tir à trois points). Les joueurs également influencent le jeu, des phénomènes comme : Shaquille O'Neal, qui a obligé la ligue a revoir la conception de leur panier car il les brisaient, ou encore Stephen Curry qui est a l'origine de la monté de l'importance des tirs à trois points ont fortément influencé la manière dont le sport est joué aujourd'hui.
+    - Il y a clairement eu des changement au cours des années, c'est inévitable avec les changements d'époques. Il y a forcément eu des évolutions des règles et des styles de jeu (pour citer un changement majeur : l'importance du tir à trois points). Les joueurs également influencent le jeu, des phénomènes comme : Shaquille O'Neal, qui a obligé la ligue a revoir la conception de leur panier car il les brisaient, ou encore Stephen Curry qui est a l'origine de la monté de l'importance des tirs à trois points ont fortément influencé la manière dont le sport est joué aujourd'hui.
     
-    - On peut assez facilement deviné que le jeu est devenu plus rapide et plus tourné vers l'attaque, rendant les matchs beaucoup plus rentables qu'auparavant car le spectacle n'en devient que meilleur. Cela est encore une fois influencé par la ligue mais aussi et surtout pas les spectateurs.
+    - On peut assez facilement deviner que le jeu est devenu plus rapide et plus tourné vers l'attaque, rendant les matchs beaucoup plus rentables qu'auparavant car le spectacle n'en devient que meilleur. Cela est encore une fois influencé par la ligue mais aussi et surtout par les spectateurs.
 
 - **III - Conclusions :**
 
-    - Le constat est simple, plus les matchs sont spectaculaire, plus les spectateurs aiment. Les très bon joueurs passent d'athlète a super-star, ils redéfinissent le jeu tandis que les spectateurs deviennent des fans et les franchises se remplissent toujours plus les poches.
+    - Le constat est simple, plus les matchs sont spectaculaires, plus les spectateurs aiment. Les très bon joueurs passent d'athlète a super-star, ils redéfinissent le jeu tandis que les spectateurs deviennent des fans et les franchises se remplissent toujours plus les poches.
 
     - Il paraît donc normal que les règles d'une ligue basé sur le profit avec des joueurs de plus en plus spéctaculaire qui veulent absolument vaincre évolue dans ce sens.
 
@@ -235,6 +235,29 @@ En regroupant ces deux analyse, on comprend mieux la stratégie de la ligue NBA 
 Pour le résumer en 2 mots, on pourrait dire Stratégie et Spectacles. 
     
 
+## V - Copyright
+
+- Nous déclarons sur l’honneur que le code fourni a été produit par nous même, à l’exception des lignes ci dessous :
+    - Téléchargement Kaggle : 
+        ```python
+        import kagglehub
+
+        # Download latest version
+        path = kagglehub.dataset_download("kaggle-link")
+
+        print("Path to dataset files:", path)
+        ```
+        Ceci est le code fourni directement sur kaggle lorsque l'on souhaite télécharger un dataset.
+    
+    - Fonctionnement de l'application :
+        Une partie du fonctionnement de l'application à été faite grâce a la documentation en ligne de Dash.
+        Par exemple pour le fonctionnement des Multi-pages : https://dash.plotly.com/urls
+
+- Pour chaque ligne (ou groupe de lignes) empruntée, donner la référence de la source et une explication de la syntaxe utilisée.
+
+- Toute ligne non déclarée ci dessus est réputée être produite par l’auteur (ou les auteurs) du projet. L’absence ou l’omission de déclaration sera considéré comme du plagiat.
+
+ 
 
     
     

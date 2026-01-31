@@ -127,8 +127,8 @@ def download():
         ref_us.extractall(dest_uc)
 
     # Renaming the files that interest us
-    name = dest_cc / "uscities.csv"
-    new_name = dest_cc / "us_cities.csv"
+    name = dest_uc / "uscities.csv"
+    new_name = dest_uc / "us_cities.csv"
     name.rename(new_name)
 
     # Removing the others files that has been extracted and that we don't need
