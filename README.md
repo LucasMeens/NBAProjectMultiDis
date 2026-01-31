@@ -250,6 +250,7 @@ Pour le résumer en 2 mots, on pourrait dire Stratégie et Spectacles.
         Ceci est le code fourni directement sur kaggle lorsque l'on souhaite télécharger un dataset.
     
     - Fonctionnement de l'application :
+    
         Une partie du fonctionnement de l'application à été faite grâce a la documentation en ligne de Dash.
         Par exemple pour le fonctionnement des Multi-pages : https://dash.plotly.com/urls
 
