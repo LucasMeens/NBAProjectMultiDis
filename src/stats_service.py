@@ -1,11 +1,11 @@
 import pandas as pd
 import os
 
-franchises = ''
-games = ''
-wins = ''
-players = ''
-cities = ''
+franchises = None
+games = None
+wins = None
+players = None
+cities = None
 
 def load_all_data():
     global franchises
@@ -23,17 +23,22 @@ def load_all_data():
     players = pd.read_csv(os.path.join(DATA_PATH, 'players_stats.csv'))
     cities = pd.read_csv(os.path.join(DATA_PATH, 'cities.csv'))
 
-load_all_data()
+def is_data_loaded():
+    if franchises is None:
+        load_all_data()
 
 def get_team_list():
+    is_data_loaded()
     return sorted(franchises['franchise'].unique())
 
 def get_season_list():
+    is_data_loaded()
     seasons = sorted([s for s in games['year'].unique() if s <= 2018], reverse=True)
     return ["ALL-TIME"] + [str(s) for s in seasons]
 
 
 def get_points_per_game(team, season):
+    is_data_loaded()
     df_games = get_home_away_stats(team, season)
     
     if df_games is None or df_games.empty:
@@ -91,6 +96,7 @@ def get_points_per_game(team, season):
 ## --------------------------------------------------------------------------------
 
 def get_home_away_stats(team, season):
+    is_data_loaded()
     games['year'] = pd.to_numeric(games['year'], errors='coerce')
     
     if str(season) == "ALL-TIME":
@@ -120,18 +126,21 @@ def get_home_away_stats(team, season):
     return df_season
 
 def get_finals_summary(season):
+    is_data_loaded()
     if str(season) == "ALL-TIME":
         return wins.sort_values('year', ascending=False).head(1)
     
     return wins[wins['year'] == int(season)]
 
 def get_player_stats(player_name):
+    is_data_loaded()
     if player_name:
         return players[players['player'].str.contains(player_name, case=False, na=False)]
     
     return pd.DataFrame()
 
 def get_finals_history(team="ALL"):
+    is_data_loaded()
     if team == "ALL": 
         return wins
     
@@ -142,4 +151,5 @@ def get_finals_history(team="ALL"):
                 (wins['east_champion'].astype(str).str.contains(nickname, case=False, na=False))]
 
 def load_map_data():
+    is_data_loaded()
     return franchises, cities

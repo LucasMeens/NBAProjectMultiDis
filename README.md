@@ -30,7 +30,7 @@ Cette section explique comment installer et lancer le projet sur n'importe quell
 
 ### Lancement du Dashboard
 
-**Démarrer l'application :**
+- **Démarrer l'application :**
 
 ```bash
 python main.py
@@ -63,18 +63,79 @@ Cette section renseigne sur l'architecture de l'application et ensuite démontre
 
 ### Architecture globale : 
 
+- **1. Cas du téléchargement et nettoyage au démarrage :**
 
+    - Le sens de la lecture se fait du haut vers le bas et de la gauche vers la droite (comme un roman)
+        ```mermaid
+        graph
+            A((Kaggle / Internet))
+            B[main.py]
+            C(["download()"])
+            D(["clean()"])
+            J[get_data.py]
+            K[clean_data.py]
+            E[(Dossier raw)]
+            F[(Dossier cleaned)]
+            G[Dash App]
+            H[stats_service.py]
+            I((Utilisateur))
+
+            A <--> C
+            B --> |Appelle| C
+            C --> |Lance| J
+            J --> |Télécharge| E
+
+            B --> |Appelle| D
+            K --> |Lit| E
+            D --> |Lance| K
+            K --> |Nettoie| F
+
+            B -->|Lance| G
+            I <-->|Utilise| G
+            G -->|Appelle| H
+
+            H -.->|"Charge (Lazy Loading)"| F
+        ```
+
+- **2. Cas du lancement de la page des graphiques depuis la page d'accueil :**
+
+    - Le sens de la lecture est le même
+        ```mermaid
+        graph 
+            A((Page Accueil))
+            B[[Bouton 'ALLER AUX GRAPHIQUES']]
+            
+            C["charts.py <br> (Charge filtres & HTML)"]
+            
+            D(["Affiche la Page <br> (Filtres remplis, Graphes vides)"])
+            
+            E(["Callbacks<br> (Lecture et calculs)"])
+            
+            F((Graphes <br> Remplis))
+
+            G[(Donnees CSV)]
+
+            A --> |Clic| B
+            B -->|Lance| C
+            
+            C -->|Lit| G
+            C -->|Renvoie le Layout| D
+            
+            D --> E
+            E -->|Lit| G
+            E -->|Met à jour| F
+        ```
 
 ### Ajout d'une nouvelle page :
 
-**1. Création de la page :**
+- **1. Création de la page :**
 
     - Créer le fichier de la page dans src/pages/ : 
         ```
         exemple.py
         ```
 
-**2. Ajout de la page au registre des pages :**
+- **2. Ajout de la page au registre des pages :**
 
     - Dans exemple.py : 
         ```python
@@ -87,7 +148,7 @@ Cette section renseigne sur l'architecture de l'application et ensuite démontre
                 return html.Div([])
         ```
 
-**3. Bonus :**
+- **3. Bonus :**
 
     - Ajout de la barre de navigation :
         ```python

@@ -5,131 +5,133 @@ import requests
 import zipfile
 import io
 import os
-# ----------------------------------
-# Downloading NBA Finals and MVP.csv
-# ----------------------------------
 
-# Download the dataset using kagglehub
-path_fnm = kg.dataset_download("thedevastator/historical-nba-finals-and-mvp-results")
-# Getting the good file if it's a dataset
-finals_n_mvp = Path(path_fnm) / "NBA Finals and MVP.csv"
+def download():
+    # ----------------------------------
+    # Downloading NBA Finals and MVP.csv
+    # ----------------------------------
 
-# Setting the destination as data/raw/csvs
-dest_fnm = Path("data/raw/csvs/finals_n_mvp.csv")
-# Check if the parents folders exist and create it if not
-dest_fnm.parent.mkdir(parents=True, exist_ok=True)
+    # Download the dataset using kagglehub
+    path_fnm = kg.dataset_download("thedevastator/historical-nba-finals-and-mvp-results")
+    # Getting the good file if it's a dataset
+    finals_n_mvp = Path(path_fnm) / "NBA Finals and MVP.csv"
 
-# Copy the file in the right destination
-shutil.copy(finals_n_mvp, dest_fnm)
+    # Setting the destination as data/raw/csvs
+    dest_fnm = Path("data/raw/csvs/finals_n_mvp.csv")
+    # Check if the parents folders exist and create it if not
+    dest_fnm.parent.mkdir(parents=True, exist_ok=True)
 
-# ----------------------------------
-# Downloading games.csv
-# ----------------------------------
+    # Copy the file in the right destination
+    shutil.copy(finals_n_mvp, dest_fnm)
 
-# Download the dataset using kagglehub
-path_g = kg.dataset_download("eoinamoore/historical-nba-data-and-player-box-scores")
-# Getting the good file because here, it's a dataset
-games = Path(path_g) / "Games.csv"
+    # ----------------------------------
+    # Downloading games.csv
+    # ----------------------------------
 
-# Setting the destination as data/raw/csvs
-dest_g = Path("data/raw/csvs/games.csv")
+    # Download the dataset using kagglehub
+    path_g = kg.dataset_download("eoinamoore/historical-nba-data-and-player-box-scores")
+    # Getting the good file because here, it's a dataset
+    games = Path(path_g) / "Games.csv"
 
-# No need of checking parent here because we did it earlier
+    # Setting the destination as data/raw/csvs
+    dest_g = Path("data/raw/csvs/games.csv")
 
-# Copy the file in the right destination
-shutil.copy(games, dest_g)
+    # No need of checking parent here because we did it earlier
 
-# ----------------------------------
-# Downloading franchise_locations.csv
-# ----------------------------------
+    # Copy the file in the right destination
+    shutil.copy(games, dest_g)
 
-# Download the dataset using kagglehub
-path_fl = kg.dataset_download("logandonaldson/sports-stadium-locations")
-# Getting the good file because here, it's a dataset
-locations = Path(path_fl) / "stadiums.csv" 
+    # ----------------------------------
+    # Downloading franchise_locations.csv
+    # ----------------------------------
 
-# Setting the destination as data/raw/csvs
-dest_fl = Path("data/raw/csvs/franchise_locations.csv")
+    # Download the dataset using kagglehub
+    path_fl = kg.dataset_download("logandonaldson/sports-stadium-locations")
+    # Getting the good file because here, it's a dataset
+    locations = Path(path_fl) / "stadiums.csv" 
 
-# No need of checking parent here because we did it earlier
+    # Setting the destination as data/raw/csvs
+    dest_fl = Path("data/raw/csvs/franchise_locations.csv")
 
-# Copy the file in the right destination
-shutil.copy(locations, dest_fl)
+    # No need of checking parent here because we did it earlier
 
-# ----------------------------------
-# Downloading nba_player_stats.csv
-# ----------------------------------
+    # Copy the file in the right destination
+    shutil.copy(locations, dest_fl)
 
-# Download the dataset using kagglehub
-path_pl = kg.dataset_download("robertsunderhaft/nba-player-season-statistics-with-mvp-win-share")
-# Getting the good file because here, it's a dataset
-stats = Path(path_pl) / "NBA_Dataset.csv"
+    # ----------------------------------
+    # Downloading nba_player_stats.csv
+    # ----------------------------------
 
-# Setting the destination as data/raw/csvs
-dest_ps = Path("data/raw/csvs/nba_player_stats.csv")
+    # Download the dataset using kagglehub
+    path_pl = kg.dataset_download("robertsunderhaft/nba-player-season-statistics-with-mvp-win-share")
+    # Getting the good file because here, it's a dataset
+    stats = Path(path_pl) / "NBA_Dataset.csv"
 
-# No need of checking parent here because we did it earlier
+    # Setting the destination as data/raw/csvs
+    dest_ps = Path("data/raw/csvs/nba_player_stats.csv")
 
-# Copy the file in the right destination
-shutil.copy(stats, dest_ps)
+    # No need of checking parent here because we did it earlier
 
-# ----------------------------------
-# Downloading canada_cities.csv
-# ----------------------------------
+    # Copy the file in the right destination
+    shutil.copy(stats, dest_ps)
 
-# Getting the downloading url of the csv file
-can_url = "https://simplemaps.com/static/data/canada-cities/1.8/basic/simplemaps_canadacities_basicv1.8.zip"
+    # ----------------------------------
+    # Downloading canada_cities.csv
+    # ----------------------------------
 
-# Setting the destination as data/raw/csvs
-dest_cc = Path("data/raw/csvs")
+    # Getting the downloading url of the csv file
+    can_url = "https://simplemaps.com/static/data/canada-cities/1.8/basic/simplemaps_canadacities_basicv1.8.zip"
 
-# Adding a header so we make ourselves like we are a browser and to be able to download
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+    # Setting the destination as data/raw/csvs
+    dest_cc = Path("data/raw/csvs")
 
-# Downloading the csv file
-can_cities = requests.get(can_url, headers=headers) 
-# Warning us if the download fail
-can_cities.raise_for_status()
+    # Adding a header so we make ourselves like we are a browser and to be able to download
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
 
-# Using zipFile to extract the folder downloaded
-with zipfile.ZipFile(io.BytesIO(can_cities.content)) as ref_can:
-    ref_can.extractall(dest_cc)
+    # Downloading the csv file
+    can_cities = requests.get(can_url, headers=headers) 
+    # Warning us if the download fail
+    can_cities.raise_for_status()
 
-# Renaming the files that interest us
-name = dest_cc / "canadacities.csv"
-new_name = dest_cc / "canada_cities.csv"
-name.rename(new_name)
+    # Using zipFile to extract the folder downloaded
+    with zipfile.ZipFile(io.BytesIO(can_cities.content)) as ref_can:
+        ref_can.extractall(dest_cc)
 
-# Removing the others files that has been extracted and that we don't need
-os.remove(Path("data/raw/csvs/license.txt"))
-os.remove(Path("data/raw/csvs/canadacities.sql"))
-os.remove(Path("data/raw/csvs/canadacities.xlsx"))
+    # Renaming the files that interest us
+    name = dest_cc / "canadacities.csv"
+    new_name = dest_cc / "canada_cities.csv"
+    name.rename(new_name)
 
-# ----------------------------------
-# Downloading us_cities.csv
-# ----------------------------------
+    # Removing the others files that has been extracted and that we don't need
+    os.remove(Path("data/raw/csvs/license.txt"))
+    os.remove(Path("data/raw/csvs/canadacities.sql"))
+    os.remove(Path("data/raw/csvs/canadacities.xlsx"))
 
-# Getting the downloading url of the csv file
-us_url = "https://simplemaps.com/static/data/us-cities/1.92/basic/simplemaps_uscities_basicv1.92.zip"
+    # ----------------------------------
+    # Downloading us_cities.csv
+    # ----------------------------------
 
-# Setting the destination as data/raw/csvs
-dest_uc = Path("data/raw/csvs")
+    # Getting the downloading url of the csv file
+    us_url = "https://simplemaps.com/static/data/us-cities/1.92/basic/simplemaps_uscities_basicv1.92.zip"
 
-# Downloading the csv file
-us_cities = requests.get(us_url, headers=headers)
-# Warn if the download fail
-us_cities.raise_for_status()
+    # Setting the destination as data/raw/csvs
+    dest_uc = Path("data/raw/csvs")
 
-# Using zipFile to extract the folder downloaded
-with zipfile.ZipFile(io.BytesIO(us_cities.content)) as ref_us:
-    ref_us.extractall(dest_uc)
+    # Downloading the csv file
+    us_cities = requests.get(us_url, headers=headers)
+    # Warn if the download fail
+    us_cities.raise_for_status()
 
-# Renaming the files that interest us
-name = dest_cc / "uscities.csv"
-new_name = dest_cc / "us_cities.csv"
-name.rename(new_name)
+    # Using zipFile to extract the folder downloaded
+    with zipfile.ZipFile(io.BytesIO(us_cities.content)) as ref_us:
+        ref_us.extractall(dest_uc)
 
-# Removing the others files that has been extracted and that we don't need
-os.remove(Path("data/raw/csvs/license.txt"))
-os.remove(Path("data/raw/csvs/uscities.xlsx"))
+    # Renaming the files that interest us
+    name = dest_cc / "uscities.csv"
+    new_name = dest_cc / "us_cities.csv"
+    name.rename(new_name)
+
+    # Removing the others files that has been extracted and that we don't need
+    os.remove(Path("data/raw/csvs/license.txt"))
+    os.remove(Path("data/raw/csvs/uscities.xlsx"))
 
