@@ -17,7 +17,7 @@ def filter(options_teams):
                     html.Label("Options Carte", style={"marginTop": "15px", "fontWeight": "bold", "display": "block"}),
                     dcc.Checklist(id="map-options", options=[{"label": " Afficher densité population", "value": "density"}], value=[], style={"padding": "10px 0"}),
                 ],
-                className="filter-container"
+                className="filter-container",
             )
         ],   
         className="flex-box"       

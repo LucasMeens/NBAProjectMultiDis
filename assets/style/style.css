@@ -96,7 +96,6 @@ body {
 .flex-box {
     display: flex;
     justify-content: center;
-    overflow-x: auto;
     min-width: fit-content;
 }
 
@@ -110,7 +109,8 @@ body {
     background-color : var(--container-background);
     padding : 20px ;
     margin: 20px;
-    border-radius : 12px;       
+    border-radius : 12px;    
+    overflow:visible;   
 }
 
 /* ------------------------------------------------------------
@@ -309,6 +309,7 @@ body {
     border-radius: 12px; 
     margin-top: 20px;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    overflow: visible;
 }
 
 .filter-charts-container {
