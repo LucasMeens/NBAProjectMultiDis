@@ -39,9 +39,9 @@ def get_season_list():
 
 def get_points_per_game(team, season):
     is_data_loaded()
-    df_games = get_home_away_stats(team, season)
+    games = get_home_away_stats(team, season)
     
-    if df_games is None or df_games.empty:
+    if games is None or games.empty:
         return pd.DataFrame(columns=['score_obtenu'])
 
     def extract_score(row):
@@ -63,22 +63,22 @@ def get_points_per_game(team, season):
         return row['home_score'] if is_home else row['away_score']
 
    
-    df_result = pd.DataFrame(df_games.to_dict()) 
+    result = pd.DataFrame(games.to_dict()) 
     
-    df_result['score_obtenu'] = df_result.apply(extract_score, axis=1)
-    return df_result
+    result['score_obtenu'] = result.apply(extract_score, axis=1)
+    return result
 
 # Fonction points_per_game for players (option finalement non envisagé) --------------------------------------------------
 
 #    players['season'] = pd.to_numeric(players['season'], errors='coerce')
     
 #    if str(season) == "ALL-TIME":
-#        df_season = players.copy()
+#        season = players.copy()
 #    else:
-#       df_season = players[players['season'] == int(season)].copy()
+#       season = players[players['season'] == int(season)].copy()
 
 #    if team == "ALL":
-#        return df_season[df_season['team_id'] != 'TOT']
+#        return season[season['team_id'] != 'TOT']
 
 #    historical_codes = {
 #        "Oklahoma City Thunder": ["OKC", "SEA"],
@@ -91,7 +91,7 @@ def get_points_per_game(team, season):
     
 #    target_codes = historical_codes.get(team, [team[:3].upper()])
 
-#    return df_season[df_season['team_id'].isin(target_codes)].copy()
+#    return season[season['team_id'].isin(target_codes)].copy()
 
 ## --------------------------------------------------------------------------------
 
@@ -100,9 +100,9 @@ def get_home_away_stats(team, season):
     games['year'] = pd.to_numeric(games['year'], errors='coerce')
     
     if str(season) == "ALL-TIME":
-        df_season = games
+        season = games
     else:
-        df_season = games[games['year'] == int(season)].copy()
+        season = games[games['year'] == int(season)].copy()
     
     if team != "ALL":
         keywords = {
@@ -118,12 +118,12 @@ def get_home_away_stats(team, season):
         
         pattern = "|".join(words)
         
-        mask = (df_season['home_name'].str.contains(pattern, case=False, na=False)) | \
-               (df_season['away_name'].str.contains(pattern, case=False, na=False))
+        mask = (season['home_name'].str.contains(pattern, case=False, na=False)) | \
+               (season['away_name'].str.contains(pattern, case=False, na=False))
         
-        return df_season[mask].copy().reset_index(drop=True)
+        return season[mask].copy().reset_index(drop=True)
     
-    return df_season
+    return season
 
 def get_finals_summary(season):
     is_data_loaded()

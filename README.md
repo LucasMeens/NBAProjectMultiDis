@@ -269,10 +269,10 @@ Pour le résumer en 2 mots, on pourrait dire Stratégie et Spectacles.
             
             pattern = "|".join(words)
             
-            mask = (df_season['home_name'].str.contains(pattern, case=False, na=False)) | \
-                (df_season['away_name'].str.contains(pattern, case=False, na=False))
+            mask = (season['home_name'].str.contains(pattern, case=False, na=False)) | \
+                (season['away_name'].str.contains(pattern, case=False, na=False))
             
-            return df_season[mask].copy().reset_index(drop=True)
+            return season[mask].copy().reset_index(drop=True)
         ```
 
         Pour récupérer les mots on a également eu recours à l'IA sur cette partie là et cela nous a permis de comprendre comment procéder avec le reste.
