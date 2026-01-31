@@ -23,5 +23,23 @@ def layout():
             ],
             className="flex-box"
         ),
+
+        html.Div(
+            [   
+                html.Div(
+                    [
+                        html.H2(
+                            "🏀 Le hasard n'a pas sa place sur le parquet.",
+                            className="map-title"
+                        ),
+                        html.H3(
+                            "Jetez un œil à cette carte : des parquets de Los Angeles aux neiges de Toronto, les 30 franchises NBA ne se sont pas installées là par chance. En superposant la localisation des équipes et la densité de population, une évidence saute aux yeux : la Grande Ligue suit la foule. Là où le cœur de l’Amérique bat le plus fort, la balle orange rebondit.",
+                            className="map-text"
+                        )
+                    ]
+                )
+            ],
+            className="flex-box"
+        )
     ],
 )

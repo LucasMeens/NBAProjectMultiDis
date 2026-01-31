@@ -113,6 +113,16 @@ body {
     overflow:visible;   
 }
 
+.map-title {
+    color: white;
+}
+
+.map-text {
+    width: 1200px;
+    color: white;
+    margin-bottom: 200px;
+}
+
 /* ------------------------------------------------------------
                             Charts Page
    ------------------------------------------------------------- */
