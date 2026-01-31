@@ -1,5 +1,5 @@
 import dash
-from dash import Input, Output, html, dcc
+from dash import Input, Output, html
 from src.components.components.nba_map import nba_map_component
 from src.stats_service import load_map_data
 
